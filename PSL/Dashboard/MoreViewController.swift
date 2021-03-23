@@ -7,15 +7,58 @@
 
 import UIKit
 
-class MoreViewController: UIViewController {
+class MoreViewController: UIViewController ,UITableViewDataSource, UITableViewDelegate{
 
+    @IBOutlet weak var tableView: UITableView!
+    var menuList  = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        setDataFactory()
+        setUpTableView()
     }
-    
+    func setDataFactory(){
+        menuList.append("View Profile")
+        menuList.append("Recommend A word")
+        menuList.append("About PSL")
 
+    }
+    func setUpTableView(){
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.separatorStyle = .singleLine
+        self.tableView.estimatedRowHeight = 100
+        self.tableView.separatorInset = .zero
+        self.tableView.layoutMargins = .zero
+        self.tableView.isEmptyRowsHidden =  true
+        self.tableView.rowHeight = UITableView.automaticDimension
+
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+           return 50
+       }
+       func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return menuList.count
+         }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      
+              let identifier = "MenuTableViewCell"
+              
+              var cell: MenuTableViewCell! = tableView.dequeueReusableCell(withIdentifier: identifier) as? MenuTableViewCell
+              if cell == nil {
+                  tableView.register(UINib(nibName: "MenuTableViewCell", bundle: nil), forCellReuseIdentifier: identifier)
+                  cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? MenuTableViewCell
+              }
+                      
+        cell.lblTitle.text =  menuList[indexPath.row]
+        cell.selectionStyle = .none
+              return cell
+       }
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+  }
     /*
     // MARK: - Navigation
 

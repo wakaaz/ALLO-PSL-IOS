@@ -22,6 +22,11 @@
 		FA37432D25F16B7E00B2525E /* Inter-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA37432425F16B7E00B2525E /* Inter-Black.ttf */; };
 		FA37432E25F16B7E00B2525E /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA37432525F16B7E00B2525E /* Inter-SemiBold.ttf */; };
 		FA37433425F16CF800B2525E /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37433325F16CF800B2525E /* ShadowView.swift */; };
+		FA4B20BB2609F4C8006B8759 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B20B92609F4C8006B8759 /* MenuTableViewCell.swift */; };
+		FA4B20BC2609F4C8006B8759 /* MenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4B20BA2609F4C8006B8759 /* MenuTableViewCell.xib */; };
+		FA4B20C92609FB19006B8759 /* UICommonMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B20C82609FB19006B8759 /* UICommonMethods.swift */; };
+		FA4B20CF260A08FF006B8759 /* FavouriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B20CD260A08FF006B8759 /* FavouriteTableViewCell.swift */; };
+		FA4B20D0260A08FF006B8759 /* FavouriteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4B20CE260A08FF006B8759 /* FavouriteTableViewCell.xib */; };
 		FAE0AA7425C8797C0059590E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE0AA7325C8797C0059590E /* AppDelegate.swift */; };
 		FAE0AA7625C8797C0059590E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE0AA7525C8797C0059590E /* SceneDelegate.swift */; };
 		FAE0AA7825C8797C0059590E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE0AA7725C8797C0059590E /* ViewController.swift */; };
@@ -68,6 +73,11 @@
 		FA37432425F16B7E00B2525E /* Inter-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Black.ttf"; sourceTree = "<group>"; };
 		FA37432525F16B7E00B2525E /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.ttf"; sourceTree = "<group>"; };
 		FA37433325F16CF800B2525E /* ShadowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
+		FA4B20B92609F4C8006B8759 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
+		FA4B20BA2609F4C8006B8759 /* MenuTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuTableViewCell.xib; sourceTree = "<group>"; };
+		FA4B20C82609FB19006B8759 /* UICommonMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICommonMethods.swift; sourceTree = "<group>"; };
+		FA4B20CD260A08FF006B8759 /* FavouriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteTableViewCell.swift; sourceTree = "<group>"; };
+		FA4B20CE260A08FF006B8759 /* FavouriteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavouriteTableViewCell.xib; sourceTree = "<group>"; };
 		FAE0AA7025C8797C0059590E /* PSL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAE0AA7325C8797C0059590E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAE0AA7525C8797C0059590E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +125,7 @@
 		FA3742FF25F1641C00B2525E /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				FA4B20B82609F4B2006B8759 /* TableViewCell */,
 				FA37430025F164D100B2525E /* DashboardTabBarViewController.swift */,
 				FA37430825F1650000B2525E /* HomeViewController.swift */,
 				FA37430D25F1652500B2525E /* FavoritesViewController.swift */,
@@ -144,8 +155,20 @@
 			isa = PBXGroup;
 			children = (
 				FA37433325F16CF800B2525E /* ShadowView.swift */,
+				FA4B20C82609FB19006B8759 /* UICommonMethods.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		FA4B20B82609F4B2006B8759 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				FA4B20B92609F4C8006B8759 /* MenuTableViewCell.swift */,
+				FA4B20BA2609F4C8006B8759 /* MenuTableViewCell.xib */,
+				FA4B20CD260A08FF006B8759 /* FavouriteTableViewCell.swift */,
+				FA4B20CE260A08FF006B8759 /* FavouriteTableViewCell.xib */,
+			);
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 		FAE0AA6725C8797C0059590E = {
@@ -322,9 +345,11 @@
 				FA37432C25F16B7E00B2525E /* Inter-ExtraLight.ttf in Resources */,
 				FA37432625F16B7E00B2525E /* Inter-Medium.ttf in Resources */,
 				FA37432B25F16B7E00B2525E /* Inter-ExtraBold.ttf in Resources */,
+				FA4B20D0260A08FF006B8759 /* FavouriteTableViewCell.xib in Resources */,
 				FA37432825F16B7E00B2525E /* Inter-Thin.ttf in Resources */,
 				FA37432925F16B7E00B2525E /* Inter-Bold.ttf in Resources */,
 				FA37432D25F16B7E00B2525E /* Inter-Black.ttf in Resources */,
+				FA4B20BC2609F4C8006B8759 /* MenuTableViewCell.xib in Resources */,
 				FAE0AA8325C8797D0059590E /* LaunchScreen.storyboard in Resources */,
 				FAE0AA8025C8797D0059590E /* Assets.xcassets in Resources */,
 				FA37432A25F16B7E00B2525E /* Inter-Regular.ttf in Resources */,
@@ -360,10 +385,13 @@
 				FAE0AAB925C8959D0059590E /* IntroContentViewController.swift in Sources */,
 				FA37431825F1654500B2525E /* MoreViewController.swift in Sources */,
 				FA37430925F1650000B2525E /* HomeViewController.swift in Sources */,
+				FA4B20C92609FB19006B8759 /* UICommonMethods.swift in Sources */,
 				FAE0AAB125C893200059590E /* IntroPageViewController.swift in Sources */,
 				FA37430125F164D100B2525E /* DashboardTabBarViewController.swift in Sources */,
+				FA4B20BB2609F4C8006B8759 /* MenuTableViewCell.swift in Sources */,
 				FAE0AA7625C8797C0059590E /* SceneDelegate.swift in Sources */,
 				FA37431325F1653900B2525E /* DownloadViewController.swift in Sources */,
+				FA4B20CF260A08FF006B8759 /* FavouriteTableViewCell.swift in Sources */,
 				FAE0AA7E25C8797C0059590E /* PSL.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
