@@ -64,11 +64,31 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        print(AuthenticationPreference.getSession())
+        setUpTitle()
         setUpSearchBar()
         setUpCollectionView()
         requestPayload()
     }
+    
+    func setUpTitle(){
+        
+        if  selectType == UIContant.TYPE_DICTIONARY{
+            navigationItem.title = "Dictionary"
+            
+        }else if selectType == UIContant.TYPE_TEACHER{
+            navigationItem.title = "Teacher Tutorials"
+            
+        }else if selectType == UIContant.TYPE_STORIES{
+            navigationItem.title = "Stories"
+            
+        }else if selectType == UIContant.TYPE_LEARNING{
+            navigationItem.title = "Learning Tutorials"
+            
+        }
+        
+        
+    }
+    
     func setUpSearchBar(){
         simplesSelectedArray.append("Default")
         searchBar.layer.cornerRadius = 5
@@ -239,6 +259,40 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
         
+        var catId:Int = 0
+        var categoryName : String = ""
+        if  selectType == UIContant.TYPE_DICTIONARY{
+            
+            catId =  dictionaryCategories[indexPath.row].id ?? 0
+            categoryName =  dictionaryCategories[indexPath.row].title ?? ""
+            navigateToNext(categoryId: catId, categoryName: categoryName)
+            
+        }else if selectType == UIContant.TYPE_TEACHER{
+            catId =  tutGrades[indexPath.row].id ?? 0
+            categoryName =  tutGrades[indexPath.row].grade ?? ""
+            
+            if let subjectList = tutGrades[indexPath.row].subjects{
+                navigateToMedium(categoryId: catId, categoryName: categoryName, subjects: subjectList)
+                
+            }
+            
+            
+        }else if selectType == UIContant.TYPE_STORIES{
+            catId =  storyTypes[indexPath.row].id ?? 0
+            categoryName =  storyTypes[indexPath.row].title ?? ""
+            navigateToNext(categoryId: catId, categoryName: categoryName)
+            
+        }else if selectType == UIContant.TYPE_LEARNING{
+            catId =  learningTutGrades[indexPath.row].id ?? 0
+            categoryName =  learningTutGrades[indexPath.row].grade ?? ""
+            navigateToNext(categoryId: catId, categoryName: categoryName)
+            
+            
+        }
+        
+        
+        
+        
     }
     
     
@@ -318,6 +372,26 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
                 
             }
         }
+    }
+    
+    
+    func navigateToNext(categoryId:Int, categoryName:String){
+        let mainstoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let newViewcontroller:ChildMedaitorViewController  = mainstoryboard.instantiateViewController(withIdentifier: "ChildMedaitorViewController") as! ChildMedaitorViewController
+        newViewcontroller.selectType = selectType
+        newViewcontroller.categoryId = categoryId
+        newViewcontroller.categoryName =  categoryName
+        self.navigationController?.pushViewController(newViewcontroller, animated: true)
+    }
+    
+    func navigateToMedium(categoryId:Int, categoryName:String,subjects:[Subject]){
+        let mainstoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let newViewcontroller:MediumMedaitorViewController  = mainstoryboard.instantiateViewController(withIdentifier: "MediumMedaitorViewController") as! MediumMedaitorViewController
+        newViewcontroller.selectType = selectType
+        newViewcontroller.categoryId = categoryId
+        newViewcontroller.categoryName =  categoryName
+        newViewcontroller.subjects =  subjects
+        self.navigationController?.pushViewController(newViewcontroller, animated: true)
     }
 }
 

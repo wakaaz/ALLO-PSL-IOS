@@ -9,6 +9,11 @@ import UIKit
 
 class ChildMedaitorTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var typeImage: UIImageView!
+    @IBOutlet weak var lblTitleEnglish: UILabel!
+    
+    @IBOutlet weak var lblDuration: UILabel!
+    @IBOutlet weak var lblTitleUrdu: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

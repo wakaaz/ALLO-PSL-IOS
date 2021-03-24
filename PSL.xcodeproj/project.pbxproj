@@ -25,6 +25,14 @@
 		FA37432D25F16B7E00B2525E /* Inter-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA37432425F16B7E00B2525E /* Inter-Black.ttf */; };
 		FA37432E25F16B7E00B2525E /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA37432525F16B7E00B2525E /* Inter-SemiBold.ttf */; };
 		FA37433425F16CF800B2525E /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37433325F16CF800B2525E /* ShadowView.swift */; };
+		FA3F83DF260B31760031003D /* ChildMedaitorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F83DE260B31760031003D /* ChildMedaitorViewController.swift */; };
+		FA3F83EC260B46370031003D /* RootDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F83E4260B46360031003D /* RootDictionary.swift */; };
+		FA3F83EF260B46370031003D /* DictionaryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F83E7260B46360031003D /* DictionaryObject.swift */; };
+		FA3F83F2260B46370031003D /* DictionaryDatum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F83EA260B46370031003D /* DictionaryDatum.swift */; };
+		FA3F83FB260B49790031003D /* VideoQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F83FA260B49790031003D /* VideoQuality.swift */; };
+		FA3F8402260B54FD0031003D /* ChildMedaitorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F8400260B54FD0031003D /* ChildMedaitorTableViewCell.swift */; };
+		FA3F8403260B54FD0031003D /* ChildMedaitorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA3F8401260B54FD0031003D /* ChildMedaitorTableViewCell.xib */; };
+		FA3F8408260B65D60031003D /* MediumMedaitorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F8407260B65D60031003D /* MediumMedaitorViewController.swift */; };
 		FA4B20BB2609F4C8006B8759 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B20B92609F4C8006B8759 /* MenuTableViewCell.swift */; };
 		FA4B20BC2609F4C8006B8759 /* MenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4B20BA2609F4C8006B8759 /* MenuTableViewCell.xib */; };
 		FA4B20C92609FB19006B8759 /* UICommonMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B20C82609FB19006B8759 /* UICommonMethods.swift */; };
@@ -102,6 +110,14 @@
 		FA37432425F16B7E00B2525E /* Inter-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Black.ttf"; sourceTree = "<group>"; };
 		FA37432525F16B7E00B2525E /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.ttf"; sourceTree = "<group>"; };
 		FA37433325F16CF800B2525E /* ShadowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
+		FA3F83DE260B31760031003D /* ChildMedaitorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildMedaitorViewController.swift; sourceTree = "<group>"; };
+		FA3F83E4260B46360031003D /* RootDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootDictionary.swift; sourceTree = "<group>"; };
+		FA3F83E7260B46360031003D /* DictionaryObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryObject.swift; sourceTree = "<group>"; };
+		FA3F83EA260B46370031003D /* DictionaryDatum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryDatum.swift; sourceTree = "<group>"; };
+		FA3F83FA260B49790031003D /* VideoQuality.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoQuality.swift; sourceTree = "<group>"; };
+		FA3F8400260B54FD0031003D /* ChildMedaitorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildMedaitorTableViewCell.swift; sourceTree = "<group>"; };
+		FA3F8401260B54FD0031003D /* ChildMedaitorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChildMedaitorTableViewCell.xib; sourceTree = "<group>"; };
+		FA3F8407260B65D60031003D /* MediumMedaitorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumMedaitorViewController.swift; sourceTree = "<group>"; };
 		FA4B20B92609F4C8006B8759 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		FA4B20BA2609F4C8006B8759 /* MenuTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuTableViewCell.xib; sourceTree = "<group>"; };
 		FA4B20C82609FB19006B8759 /* UICommonMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICommonMethods.swift; sourceTree = "<group>"; };
@@ -234,6 +250,26 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		FA3F83E3260B3EF30031003D /* DictionaryModel */ = {
+			isa = PBXGroup;
+			children = (
+				FA3F83FA260B49790031003D /* VideoQuality.swift */,
+				FA3F83EA260B46370031003D /* DictionaryDatum.swift */,
+				FA3F83E7260B46360031003D /* DictionaryObject.swift */,
+				FA3F83E4260B46360031003D /* RootDictionary.swift */,
+			);
+			path = DictionaryModel;
+			sourceTree = "<group>";
+		};
+		FA3F83FF260B54DC0031003D /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				FA3F8400260B54FD0031003D /* ChildMedaitorTableViewCell.swift */,
+				FA3F8401260B54FD0031003D /* ChildMedaitorTableViewCell.xib */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
 		FA4B20B82609F4B2006B8759 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,8 +286,11 @@
 		FA4B20DE260A3797006B8759 /* MedaitorSection */ = {
 			isa = PBXGroup;
 			children = (
+				FA3F83FF260B54DC0031003D /* TableViewCell */,
 				FA4B20EC260A43E9006B8759 /* CollectionViewCell */,
 				FA4B20E2260A391F006B8759 /* MedaitorViewController.swift */,
+				FA3F83DE260B31760031003D /* ChildMedaitorViewController.swift */,
+				FA3F8407260B65D60031003D /* MediumMedaitorViewController.swift */,
 			);
 			path = MedaitorSection;
 			sourceTree = "<group>";
@@ -268,7 +307,8 @@
 			isa = PBXGroup;
 			children = (
 				FA4B2100260A6453006B8759 /* Auth */,
-				FA4B211E260A6FE2006B8759 /* PreferenceModel */,
+				FA4B2115260A6958006B8759 /* Preferences */,
+				FA3F83E3260B3EF30031003D /* DictionaryModel */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -276,6 +316,7 @@
 		FA4B2100260A6453006B8759 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				FA4B211E260A6FE2006B8759 /* PreferenceModel */,
 				FA4B2101260A6453006B8759 /* Auth.swift */,
 				FA4B2102260A6453006B8759 /* RootClass.swift */,
 			);
@@ -334,7 +375,6 @@
 				FA3742FF25F1641C00B2525E /* Dashboard */,
 				FA4B20DE260A3797006B8759 /* MedaitorSection */,
 				FA4B20FF260A63F0006B8759 /* DataModels */,
-				FA4B2115260A6958006B8759 /* Preferences */,
 				FA37433225F16CBA00B2525E /* Utilities */,
 				FA37431C25F16B7E00B2525E /* Fonts */,
 				FAE0AA7325C8797C0059590E /* AppDelegate.swift */,
@@ -495,6 +535,7 @@
 				FA37432D25F16B7E00B2525E /* Inter-Black.ttf in Resources */,
 				FA4B20BC2609F4C8006B8759 /* MenuTableViewCell.xib in Resources */,
 				FAE0AA8325C8797D0059590E /* LaunchScreen.storyboard in Resources */,
+				FA3F8403260B54FD0031003D /* ChildMedaitorTableViewCell.xib in Resources */,
 				FAE0AA8025C8797D0059590E /* Assets.xcassets in Resources */,
 				FA37432A25F16B7E00B2525E /* Inter-Regular.ttf in Resources */,
 				FAE0AA7B25C8797C0059590E /* Main.storyboard in Resources */,
@@ -641,19 +682,26 @@
 				FA37431825F1654500B2525E /* MoreViewController.swift in Sources */,
 				FA37430925F1650000B2525E /* HomeViewController.swift in Sources */,
 				FA4B20C92609FB19006B8759 /* UICommonMethods.swift in Sources */,
+				FA3F83F2260B46370031003D /* DictionaryDatum.swift in Sources */,
 				FA4B2103260A6453006B8759 /* Auth.swift in Sources */,
 				FAE0AAB125C893200059590E /* IntroPageViewController.swift in Sources */,
 				FA4B212D260A6FE2006B8759 /* LearningTutGrade.swift in Sources */,
 				FA4B2129260A6FE2006B8759 /* StoryType.swift in Sources */,
+				FA3F8408260B65D60031003D /* MediumMedaitorViewController.swift in Sources */,
 				FA37430125F164D100B2525E /* DashboardTabBarViewController.swift in Sources */,
 				FA4B2104260A6453006B8759 /* RootClass.swift in Sources */,
 				FA4B20EE260A440B006B8759 /* MedaitorCollectionViewCell.swift in Sources */,
+				FA3F83EC260B46370031003D /* RootDictionary.swift in Sources */,
 				FA4B212C260A6FE2006B8759 /* LifeSkill.swift in Sources */,
+				FA3F8402260B54FD0031003D /* ChildMedaitorTableViewCell.swift in Sources */,
+				FA3F83FB260B49790031003D /* VideoQuality.swift in Sources */,
 				FA4B20BB2609F4C8006B8759 /* MenuTableViewCell.swift in Sources */,
 				FA4B20FB260A62B4006B8759 /* UIContant.swift in Sources */,
 				FAE0AA7625C8797C0059590E /* SceneDelegate.swift in Sources */,
 				FA4B212E260A6FE2006B8759 /* MainPreference.swift in Sources */,
 				FA37431325F1653900B2525E /* DownloadViewController.swift in Sources */,
+				FA3F83EF260B46370031003D /* DictionaryObject.swift in Sources */,
+				FA3F83DF260B31760031003D /* ChildMedaitorViewController.swift in Sources */,
 				FA4B20CF260A08FF006B8759 /* FavouriteTableViewCell.swift in Sources */,
 				FA4B2117260A6958006B8759 /* AuthenticationPreference.swift in Sources */,
 				FAE0AA7E25C8797C0059590E /* PSL.xcdatamodeld in Sources */,
