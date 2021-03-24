@@ -9,4 +9,7 @@ import UIKit
 
 class MedaitorCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var lblSubHeading: UILabel!
+    @IBOutlet weak var lblTypeName: UILabel!
+    @IBOutlet weak var typeImage: UIImageView!
 }
