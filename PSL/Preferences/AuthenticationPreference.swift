@@ -10,7 +10,8 @@ import UIKit
 class AuthenticationPreference: NSObject {
     static let SessionToken =  "session"
     static let empid =  "id"
-    
+    static let introScreen =  "introscreen"
+
     
     
     static func saveAuth(model:Auth){
@@ -43,4 +44,10 @@ class AuthenticationPreference: NSObject {
         return str
     }
     
+    
+    static func getIntroApp()->Bool{
+        
+        let str:Bool =  UserDefaults.standard.bool(forKey: introScreen)
+        return str
+    }
 }
