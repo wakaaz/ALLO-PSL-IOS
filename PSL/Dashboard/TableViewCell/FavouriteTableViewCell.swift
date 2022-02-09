@@ -9,6 +9,10 @@ import UIKit
 
 class FavouriteTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var lblTitle: UILabel!
+   
+    
+    @IBOutlet weak var videoImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -19,5 +23,8 @@ class FavouriteTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    
+    
     
 }

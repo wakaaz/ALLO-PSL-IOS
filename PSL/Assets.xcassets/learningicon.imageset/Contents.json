@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "learning-tutorials.png",
+      "filename" : "student-tutorials.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "learning-tutorials-1.png",
+      "filename" : "student-tutorials-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "learning-tutorials@2x.png",
+      "filename" : "student-tutorials@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "learning-tutorials@2x-1.png",
+      "filename" : "student-tutorials@2x-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "learning-tutorials@3x.png",
+      "filename" : "student-tutorials@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "learning-tutorials@3x-1.png",
+      "filename" : "student-tutorials@3x-1.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

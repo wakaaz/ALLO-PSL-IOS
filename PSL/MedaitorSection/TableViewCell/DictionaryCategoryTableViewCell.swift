@@ -9,6 +9,10 @@ import UIKit
 
 class DictionaryCategoryTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var img: UIImageView!
+    
+    @IBOutlet weak var lbltotalCount: UILabel!
+    @IBOutlet weak var lbltitle: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

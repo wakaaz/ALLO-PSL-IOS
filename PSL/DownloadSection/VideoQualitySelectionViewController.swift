@@ -7,15 +7,18 @@
 
 import UIKit
 
-class VideoQualitySelectionViewController: UIViewController {
+class VideoQualitySelectionViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+      
+     
+      
     
-
+    
     /*
     // MARK: - Navigation
 

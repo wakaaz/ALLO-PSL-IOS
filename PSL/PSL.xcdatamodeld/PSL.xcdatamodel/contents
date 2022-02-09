@@ -1,4 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Categories" representedClassName="Categories" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="videos" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Downloadvideos" representedClassName="Downloadvideos" syncable="YES" codeGenerationType="class">
+        <attribute name="videoduration" optional="YES" attributeType="String"/>
+        <attribute name="videoid" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="videoName" optional="YES" attributeType="String"/>
+        <attribute name="videopath" optional="YES" attributeType="String"/>
+        <attribute name="videoThumnail" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Words" representedClassName="Words" syncable="YES" codeGenerationType="class">
+        <attribute name="category_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="english_word" optional="YES" attributeType="String"/>
+        <attribute name="favorite" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="filename" optional="YES" attributeType="String"/>
+        <attribute name="filesize240" optional="YES" attributeType="String"/>
+        <attribute name="filesize360" optional="YES" attributeType="String"/>
+        <attribute name="filesize480" optional="YES" attributeType="String"/>
+        <attribute name="filesize720" optional="YES" attributeType="String"/>
+        <attribute name="filesize1080" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="p240" optional="YES" attributeType="String"/>
+        <attribute name="p360" optional="YES" attributeType="String"/>
+        <attribute name="p480" optional="YES" attributeType="String"/>
+        <attribute name="p720" optional="YES" attributeType="String"/>
+        <attribute name="p1080" optional="YES" attributeType="String"/>
+        <attribute name="poster" optional="YES" attributeType="String"/>
+        <attribute name="shareableurl" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="urdu_word" optional="YES" attributeType="String"/>
+        <attribute name="vimeo_link" optional="YES" attributeType="String"/>
+        <attribute name="youtube_link" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="Categories" positionX="-54" positionY="99" width="128" height="103"/>
+        <element name="Downloadvideos" positionX="-54" positionY="99" width="128" height="118"/>
+        <element name="Words" positionX="-54" positionY="-9" width="128" height="344"/>
+    </elements>
 </model>

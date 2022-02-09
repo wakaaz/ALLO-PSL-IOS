@@ -8,5 +8,10 @@
 import UIKit
 
 class CategoryModel: NSObject {
+    var id : Int?
+    var image : String?
+    var title : String?
+    var videos : Int?
 
+    
 }

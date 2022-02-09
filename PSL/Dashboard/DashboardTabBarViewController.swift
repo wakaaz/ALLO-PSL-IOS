@@ -7,13 +7,32 @@
 
 import UIKit
 import Alamofire
-class DashboardTabBarViewController: UITabBarController,UITabBarControllerDelegate {
+import SwiftQueue
+import CoreData
+import MZDownloadManager
+
+class DashboardTabBarViewController: UITabBarController,UITabBarControllerDelegate,MZDownloadManagerDelegate,UNUserNotificationCenterDelegate {
+    let userNotificationCenter = UNUserNotificationCenter.current()
+
+    lazy var downloadManager: MZDownloadManager = {
+        [unowned self] in
+        let sessionIdentifer: String = "com.iosDevelopment.MZDownloadManager.BackgroundSession"
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        var completion = appDelegate.backgroundSessionCompletionHandler
+        
+        let downloadmanager = MZDownloadManager(session: sessionIdentifer, delegate: self, completion: completion)
+        return downloadmanager
+        }()
+    var progressController:DownloadViewController? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        requestAuth()
+        self.userNotificationCenter.delegate = self
+        self.requestNotificationAuthorization()
+        
+      // Do any additional setup after loading the view.
+      //  requestAuth()
     }
     
 
@@ -46,7 +65,149 @@ class DashboardTabBarViewController: UITabBarController,UITabBarControllerDelega
             }
         }
     }
+    
+    func downloadRequestStarted(_ downloadModel: MZDownloadModel, index: Int) {
+       // let indexPath = IndexPath.init(row: index, section: 0)
+        //tableView.insertRows(at: [indexPath], with: UITableView.RowAnimation.fade)
+        print("started")
+    }
+    
+    func downloadRequestDidPopulatedInterruptedTasks(_ downloadModels: [MZDownloadModel]) {
+      //  tableView.reloadData()
+    }
+    
+    func downloadRequestDidUpdateProgress(_ downloadModel: MZDownloadModel, index: Int) {
+        //self.refreshCellForIndex(downloadModel, index: index)
+        print("Did pregress")
+        DispatchQueue.main.async {
+            if self.progressController != nil{
+                self.progressController?.refreshCellForIndex(downloadModel, index: index)
 
+            }
+           // self.progressBar.progress =  0
+
+        }
+        
+
+    }
+    
+    func downloadRequestDidPaused(_ downloadModel: MZDownloadModel, index: Int) {
+      //  self.refreshCellForIndex(downloadModel, index: index)
+        
+        print("Did paused")
+        if progressController != nil{
+            progressController?.refreshCellForIndex(downloadModel, index: index)
+
+        }
+
+    }
+    
+    func downloadRequestDidResumed(_ downloadModel: MZDownloadModel, index: Int) {
+       // self.refreshCellForIndex(downloadModel, index: index)
+        print("Did remuse")
+        DispatchQueue.main.async {
+            if self.progressController != nil{
+                self.progressController?.refreshCellForIndex(downloadModel, index: index)
+
+            }
+           // self.progressBar.progress =  0
+
+        }
+        
+
+    }
+    
+    func downloadRequestCanceled(_ downloadModel: MZDownloadModel, index: Int) {
+        print("Did cancel")
+        if progressController != nil{
+            progressController?.refreshCellForIndex(downloadModel, index: index)
+
+        }
+        
+       // self.safelyDismissAlertController()
+        
+        
+       // let indexPath = IndexPath.init(row: index, section: 0)
+       // tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.left)
+    }
+    
+    func downloadRequestFinished(_ downloadModel: MZDownloadModel, index: Int) {
+        
+       // self.safelyDismissAlertController()
+        print("finish")
+
+        downloadManager.presentNotificationForDownload("Ok", notifBody: "Download did completed")
+       if let fileName = downloadModel.fileName{
+        
+            sendNotification(notifAction: "Ok",notifBody: fileName+" downloaded sucessfully")
+
+        }
+
+        //sendNotification(notifAction: "Ok",notifBody: "Download did completed")
+        //let indexPath = IndexPath.init(row: index, section: 0)
+       // tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.left)
+        
+        let docDirectoryPath : NSString = (MZUtility.baseFilePath as NSString).appendingPathComponent(downloadModel.fileName) as NSString
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: MZUtility.DownloadCompletedNotif as String), object: docDirectoryPath)
+    }
+    
+    func downloadRequestDidFailedWithError(_ error: NSError, downloadModel: MZDownloadModel, index: Int) {
+        //self.safelyDismissAlertController()
+       // self.refreshCellForIndex(downloadModel, index: index)
+        
+        debugPrint("Error while downloading file: \(String(describing: downloadModel.fileName))  Error: \(String(describing: error))")
+        if progressController != nil{
+            progressController?.refreshCellForIndex(downloadModel, index: index)
+
+        }
+       
+    }
+    func requestNotificationAuthorization() {
+        // Code here
+        let authOptions = UNAuthorizationOptions.init(arrayLiteral: .alert, .badge, .sound)
+        self.userNotificationCenter.requestAuthorization(options: authOptions) { (success, error) in
+            if let error = error {
+                print("Error: ", error)
+            }
+        }
+
+    }
+
+    func sendNotification(notifAction: String, notifBody: String) {
+        // Code here
+        let notificationContent = UNMutableNotificationContent()
+           notificationContent.title = "Download Complete"
+           notificationContent.body = notifBody
+           notificationContent.badge = NSNumber(value: 1)
+           
+           if let url = Bundle.main.url(forResource: "dune",
+                                       withExtension: "png") {
+               if let attachment = try? UNNotificationAttachment(identifier: "dune",
+                                                               url: url,
+                                                               options: nil) {
+                   notificationContent.attachments = [attachment]
+               }
+           }
+           
+           let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1,
+                                                           repeats: false)
+           let request = UNNotificationRequest(identifier: "testNotification",
+                                               content: notificationContent,
+                                               trigger: trigger)
+           
+           userNotificationCenter.add(request) { (error) in
+               if let error = error {
+                   print("Notification Error: ", error)
+               }
+           }
+    }
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .badge, .sound])
+    }
 }
 extension UITabBar{
      func setTransparentTabbar(){

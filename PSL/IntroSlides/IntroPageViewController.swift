@@ -19,7 +19,7 @@ class IntroPageViewController: UIPageViewController, UIPageViewControllerDataSou
         dataSource = self
         // Do any additional setup after loading the view.
         if let startViewController =  contentViewController(index: 0){
-            setViewControllers([startViewController], direction: .forward, animated: true, completion: nil)
+            setViewControllers([startViewController], direction: .forward, animated: false, completion: nil)
         }
     }
     
@@ -29,9 +29,13 @@ class IntroPageViewController: UIPageViewController, UIPageViewControllerDataSou
             return nil
         }
         let storyboard = UIStoryboard(name: "Main",bundle: nil)
-        if let pageContentViewController = storyboard.instantiateViewController(identifier: "IntroContentViewController") as? IntroContentViewController{
-            
-            return pageContentViewController
+        if #available(iOS 13.0, *) {
+            if let pageContentViewController = storyboard.instantiateViewController(identifier: "IntroContentViewController") as? IntroContentViewController{
+                
+                return pageContentViewController
+            }
+        } else {
+            // Fallback on earlier versions
         }
         return nil
     }

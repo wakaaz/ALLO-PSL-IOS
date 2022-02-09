@@ -10,7 +10,7 @@ import Alamofire
 import AlamofireImage
 import RSSelectionMenu
 
-class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UISearchBarDelegate {
     private lazy var collectionViewLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         let spacing: CGFloat = 1
@@ -25,8 +25,8 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
     
     let columnLayout = ColumnFlowLayout(
         cellsPerRow: 2,
-        minimumInteritemSpacing: 15,
-        minimumLineSpacing: 15,
+        minimumInteritemSpacing: 5,
+        minimumLineSpacing: 5,
         sectionInset: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     )
     @IBOutlet weak var collectionView: UICollectionView!
@@ -34,7 +34,8 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
     
     var selectType:Int = 0
     
-    
+    var animationOn:Bool = false
+
     /*
      Type of Data
      */
@@ -44,6 +45,13 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
     var storyTypes = [StoryType]()
     var tutGrades = [TutGrade]()
     
+    
+    
+    var tempdictionaryCategories  = [DictionaryCategory]()
+    var templearningTutGrades  =  [LearningTutGrade]()
+    var templifeSkills = [LifeSkill]()
+    var tempstoryTypes = [StoryType]()
+    var temptutGrades = [TutGrade]()
     /*
      Image Cache
      */
@@ -67,6 +75,7 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
         setUpTitle()
         setUpSearchBar()
         setUpCollectionView()
+        loadAnimation()
         requestPayload()
     }
     
@@ -82,7 +91,10 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
             navigationItem.title = "Stories"
             
         }else if selectType == UIContant.TYPE_LEARNING{
-            navigationItem.title = "Learning Tutorials"
+            navigationItem.title = "Student Tutorials"
+            
+        }else if selectType == UIContant.TYPE_SKILL{
+            navigationItem.title = "Life Skills"
             
         }
         
@@ -91,6 +103,8 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
     
     func setUpSearchBar(){
         simplesSelectedArray.append("Default")
+        self.hideKeyboardWhenTappedAround()
+        searchBar.delegate = self
         searchBar.layer.cornerRadius = 5
         searchBar.clipsToBounds = true
         searchBar.searchBarStyle = .prominent // or default
@@ -132,8 +146,9 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     @IBAction func onTappedSort(_ sender: Any) {
-        showType(style: .actionSheet, title: "Sort By", action: nil, height: nil)
-        
+        //showType(style: .actionSheet, title: "Sort By", action: nil, height: nil)
+     //   showAsAlertController(style: .actionSheet, title: "Select Player", action: nil, height: nil)
+        selectSorting()
     }
     
     /*
@@ -146,20 +161,29 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
      }
      */
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         var size:Int = 0
-        if  selectType == UIContant.TYPE_DICTIONARY{
-            size = dictionaryCategories.count
-            
-        }else if selectType == UIContant.TYPE_TEACHER{
-            size = tutGrades.count
-            
-        }else if selectType == UIContant.TYPE_STORIES{
-            size = storyTypes.count
-            
-        }else if selectType == UIContant.TYPE_LEARNING{
-            size = learningTutGrades.count
-            
+        if animationOn{
+            size = 10
+        }else{
+            if  selectType == UIContant.TYPE_DICTIONARY{
+                size = dictionaryCategories.count
+                
+            }else if selectType == UIContant.TYPE_TEACHER{
+                size = tutGrades.count
+                
+            }else if selectType == UIContant.TYPE_STORIES{
+                size = storyTypes.count
+                
+            }else if selectType == UIContant.TYPE_LEARNING{
+                size = learningTutGrades.count
+                
+            }else if selectType == UIContant.TYPE_SKILL{
+                size = lifeSkills.count
+                
+            }
         }
+       
         return size
     }
     
@@ -174,7 +198,16 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
         // make cell more visible in our example project
         
-        
+        if animationOn{
+            cell.s1.isHidden = false
+            cell.s2.isHidden = false
+            cell.s1.startAnimating()
+            cell.s2.startAnimating()
+
+        }else{
+            cell.s1.isHidden = true
+            cell.s2.isHidden = true
+         
         var headingName: String = ""
         var subHeadingName: String = ""
         var imgStr: String = ""
@@ -199,7 +232,7 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
             let count:Int = storyTypes[indexPath.row].videos ?? 0
             headingName =  storyTypes[indexPath.row].title ?? ""
             subHeadingName =  String(count)
-            imgStr =  storyTypes[indexPath.row].icon ?? ""
+          //  imgStr =  storyTypes[indexPath.row].icon ?? ""
         }else if selectType == UIContant.TYPE_LEARNING{
             var count:Int = 0
             if let subjectList = learningTutGrades[indexPath.row].subjects{
@@ -208,7 +241,15 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
             ext = "Subjects"
             headingName =  learningTutGrades[indexPath.row].grade ?? ""
             subHeadingName =  String(count)
-            imgStr =  learningTutGrades[indexPath.row].icon ?? ""
+            //imgStr =  learningTutGrades[indexPath.row].icon ?? ""
+        }else if selectType == UIContant.TYPE_SKILL{
+            
+            let count:Int = lifeSkills[indexPath.row].videos ?? 0
+            
+            ext = "Subjects"
+            headingName =  lifeSkills[indexPath.row].title ?? ""
+            subHeadingName =  String(count)
+           // imgStr =  lifeSkills[indexPath.row].icon ?? ""
         }
         
         
@@ -249,7 +290,7 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
         
         
         
-        
+        }
         return cell
     }
     
@@ -285,8 +326,15 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
         }else if selectType == UIContant.TYPE_LEARNING{
             catId =  learningTutGrades[indexPath.row].id ?? 0
             categoryName =  learningTutGrades[indexPath.row].grade ?? ""
-            navigateToNext(categoryId: catId, categoryName: categoryName)
+            if let subjectList = learningTutGrades[indexPath.row].subjects{
+                navigateToMedium(categoryId: catId, categoryName: categoryName, subjects: subjectList)
+                
+            }
             
+        }else if selectType == UIContant.TYPE_SKILL{
+            catId =  lifeSkills[indexPath.row].id ?? 0
+            categoryName =  lifeSkills[indexPath.row].title ?? ""
+            navigateToNext(categoryId: catId, categoryName: categoryName)
             
         }
         
@@ -299,19 +347,28 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
     
     
     
-    func showType(style: UIAlertController.Style, title: String?, action: String?, height: Double?) {
-        // I had viewController passed in as a function,
-        var selectionindex:Int = 0
+    
+    func showAsAlertController(style: UIAlertController.Style, title: String?, action: String?, height: Double?) {
         let selectionType: SelectionType = style == .alert ? .Single : .Multiple
         
         let selectionMenu =  RSSelectionMenu(selectionStyle: .single, dataSource: simpleDataArray) { (cell, name, indexPath) in
             cell.textLabel?.text = name
             cell.tintColor = UICommonMethods.hexStringToUIColor(hex: "#009E4F")
+            
         }
+        selectionMenu.dismissAutomatically = true
+
         selectionMenu.setSelectedItems(items: simplesSelectedArray) { [weak self] (item, index, isSelected, selectedItems) in
             
             // update your existing array with updated selected items, so when menu show menu next time, updated items will be default selected.
             self?.simplesSelectedArray = selectedItems
+            print("hello"+String(selectedItems.count))
+            if(selectedItems.count > 0){
+                let textStr = selectedItems[0]
+                self?.sortArray(textStr: textStr)
+            }
+            
+            //   self?.lblFilter.text =
         }
         
         
@@ -321,17 +378,19 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
                 selectionMenu.dismiss()
             }
             
+            //print("hello"+String(self.simplesSelectedArray.count))
             
         }
-        
         selectionMenu.show(style: .actionSheet(title: nil, action: "Done", height:(Double(simpleDataArray.count) * 50)), from: self)
         
         // show
         
     }
     
-    
     func requestPayload(){
+        
+        
+        
         let headers: HTTPHeaders = [
             "session": AuthenticationPreference.getSession(),
             "userType": UIContant.GUEST_USER
@@ -349,17 +408,25 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
                         guard let innermodel = model.object else { return }
                         if let dicList = innermodel.dictionaryCategories, !dicList.isEmpty {
                             self.dictionaryCategories =  dicList
+                            self.tempdictionaryCategories =  dicList
                         }
                         if let teacherList = innermodel.tutGrades, !teacherList.isEmpty {
                             self.tutGrades =  teacherList
+                            self.temptutGrades = teacherList
                         }
                         if let storyList = innermodel.storyTypes, !storyList.isEmpty {
                             self.storyTypes =  storyList
+                            self.tempstoryTypes =  storyList
                         }
                         if let learningList = innermodel.learningTutGrades, !learningList.isEmpty {
                             self.learningTutGrades =  learningList
+                            self.templearningTutGrades =  learningList
                         }
-                        
+                        if let skillList = innermodel.lifeSkills, !skillList.isEmpty {
+                            self.lifeSkills =  skillList
+                            self.templifeSkills =  skillList
+                        }
+                        self.hideAnimation()
                         self.collectionView.reloadData()
                         
                     }else {
@@ -392,6 +459,246 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
         newViewcontroller.categoryName =  categoryName
         newViewcontroller.subjects =  subjects
         self.navigationController?.pushViewController(newViewcontroller, animated: true)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+           searchBar.resignFirstResponder()
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+       {
+           if  (searchText == "")
+           {
+            
+            
+            if  selectType == UIContant.TYPE_DICTIONARY{
+                dictionaryCategories.removeAll(keepingCapacity: false)
+                dictionaryCategories =  tempdictionaryCategories
+            }else if selectType == UIContant.TYPE_TEACHER{
+                tutGrades.removeAll(keepingCapacity: false)
+                tutGrades =  temptutGrades
+            }else if selectType == UIContant.TYPE_STORIES{
+                storyTypes.removeAll(keepingCapacity: false)
+                storyTypes =  tempstoryTypes
+            }else if selectType == UIContant.TYPE_LEARNING{
+                learningTutGrades.removeAll(keepingCapacity: false)
+                learningTutGrades =  templearningTutGrades
+            }else if selectType == UIContant.TYPE_SKILL{
+                lifeSkills.removeAll(keepingCapacity: false)
+                lifeSkills =  templifeSkills
+            }
+            
+            
+            collectionView.reloadData()
+            
+            
+          
+              
+           }else
+           {
+            
+            if  selectType == UIContant.TYPE_DICTIONARY{
+               
+                 dictionaryCategories.removeAll(keepingCapacity: false)
+                              let predicateString = searchBar.text!
+                dictionaryCategories = tempdictionaryCategories.filter({$0.title?.range(of: predicateString, options: .caseInsensitive) != nil})
+                dictionaryCategories.sort {$0.title ?? "" < $1.title ?? ""}
+            }else if selectType == UIContant.TYPE_TEACHER{
+                tutGrades.removeAll(keepingCapacity: false)
+                             let predicateString = searchBar.text!
+                tutGrades = temptutGrades.filter({$0.grade?.range(of: predicateString, options: .caseInsensitive) != nil})
+                tutGrades.sort {$0.grade ?? "" < $1.grade ?? ""}
+            }else if selectType == UIContant.TYPE_STORIES{
+                storyTypes.removeAll(keepingCapacity: false)
+                             let predicateString = searchBar.text!
+                storyTypes = tempstoryTypes.filter({$0.title?.range(of: predicateString, options: .caseInsensitive) != nil})
+                storyTypes.sort {$0.title ?? "" < $1.title ?? ""}
+            }else if selectType == UIContant.TYPE_LEARNING{
+                learningTutGrades.removeAll(keepingCapacity: false)
+                             let predicateString = searchBar.text!
+                learningTutGrades = templearningTutGrades.filter({$0.grade?.range(of: predicateString, options: .caseInsensitive) != nil})
+                learningTutGrades.sort {$0.grade ?? "" < $1.grade ?? ""}
+            }else if selectType == UIContant.TYPE_SKILL{
+               
+                
+                lifeSkills.removeAll(keepingCapacity: false)
+                             let predicateString = searchBar.text!
+                lifeSkills = templifeSkills.filter({$0.title?.range(of: predicateString, options: .caseInsensitive) != nil})
+                lifeSkills.sort {$0.title ?? "" < $1.title ?? ""}
+            }
+            
+            
+            
+            collectionView.reloadData()
+            
+             
+           }
+       }
+    
+    
+    
+    
+    
+    
+    
+    func sortArray(textStr:String){
+        
+        if  selectType == UIContant.TYPE_DICTIONARY{
+            var tempArray = tempdictionaryCategories
+            
+            if  textStr == "Default"{
+                dictionaryCategories =  tempdictionaryCategories
+            }else if textStr == "Ascending"{
+                dictionaryCategories =  tempArray.sorted { (channel1, channel2) -> Bool in
+                    let channelName1 = channel1.title ?? ""
+                    let channelName2 = channel2.title ?? ""
+                    return (channelName1.localizedCaseInsensitiveCompare(channelName2) == .orderedAscending)}
+                
+            }else if textStr == "Descending"{
+                dictionaryCategories =  tempArray.sorted { (channel1, channel2) -> Bool in
+                    let channelName1 = channel1.title ?? ""
+                    let channelName2 = channel2.title ?? ""
+                    return (channelName1.localizedCaseInsensitiveCompare(channelName2) == .orderedDescending)}
+            }
+            
+            
+            
+        }else if selectType == UIContant.TYPE_TEACHER{
+            let tempArray = temptutGrades
+            if  textStr == "Default"{
+                tutGrades =  temptutGrades
+            }else if textStr == "Ascending"{
+                tutGrades =  tempArray.sorted { (channel1, channel2) -> Bool in
+                    let channelName1 = channel1.grade ?? ""
+                    let channelName2 = channel2.grade ?? ""
+                    return (channelName1.localizedCaseInsensitiveCompare(channelName2) == .orderedAscending)}
+                
+            }else if textStr == "Descending"{
+                tutGrades =  tempArray.sorted { (channel1, channel2) -> Bool in
+                    let channelName1 = channel1.grade ?? ""
+                    let channelName2 = channel2.grade ?? ""
+                    return (channelName1.localizedCaseInsensitiveCompare(channelName2) == .orderedDescending)}
+            }
+        }else if selectType == UIContant.TYPE_STORIES{
+            let tempArray = tempstoryTypes
+            if  textStr == "Default"{
+                storyTypes =  tempstoryTypes
+            }else if textStr == "Ascending"{
+                storyTypes =  tempArray.sorted { (channel1, channel2) -> Bool in
+                    let channelName1 = channel1.title ?? ""
+                    let channelName2 = channel2.title ?? ""
+                    return (channelName1.localizedCaseInsensitiveCompare(channelName2) == .orderedAscending)}
+                
+            }else if textStr == "Descending"{
+                storyTypes =  tempArray.sorted { (channel1, channel2) -> Bool in
+                    let channelName1 = channel1.title ?? ""
+                    let channelName2 = channel2.title ?? ""
+                    return (channelName1.localizedCaseInsensitiveCompare(channelName2) == .orderedDescending)}
+            }
+        }else if selectType == UIContant.TYPE_LEARNING{
+            let tempArray = templearningTutGrades
+            if  textStr == "Default"{
+                learningTutGrades =  templearningTutGrades
+            }else if textStr == "Ascending"{
+                learningTutGrades =  tempArray.sorted { (channel1, channel2) -> Bool in
+                    let channelName1 = channel1.grade ?? ""
+                    let channelName2 = channel2.grade ?? ""
+                    return (channelName1.localizedCaseInsensitiveCompare(channelName2) == .orderedAscending)}
+                
+            }else if textStr == "Descending"{
+                learningTutGrades =  tempArray.sorted { (channel1, channel2) -> Bool in
+                    let channelName1 = channel1.grade ?? ""
+                    let channelName2 = channel2.grade ?? ""
+                    return (channelName1.localizedCaseInsensitiveCompare(channelName2) == .orderedDescending)}
+            }
+        }else if selectType == UIContant.TYPE_SKILL{
+            let tempArray = templifeSkills
+            if  textStr == "Default"{
+                lifeSkills =  templifeSkills
+            }else if textStr == "Ascending"{
+                lifeSkills =  tempArray.sorted { (channel1, channel2) -> Bool in
+                    let channelName1 = channel1.title ?? ""
+                    let channelName2 = channel2.title ?? ""
+                    return (channelName1.localizedCaseInsensitiveCompare(channelName2) == .orderedAscending)}
+                
+            }else if textStr == "Descending"{
+                lifeSkills =  tempArray.sorted { (channel1, channel2) -> Bool in
+                    let channelName1 = channel1.title ?? ""
+                    let channelName2 = channel2.title ?? ""
+                    return (channelName1.localizedCaseInsensitiveCompare(channelName2) == .orderedDescending)}
+            }
+        }
+        
+        collectionView.reloadData()
+        
+    }
+    
+    func selectSorting(){
+        let optionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
+        
+        
+        optionMenu.view.tintColor  = UICommonMethods.hexStringToUIColor(hex: "#009E4F")
+
+       // if let p240 =  selectedDataModel?.quality240p?.url{
+            let deleteAction1 = UIAlertAction(title: "Alphabetically: A-Z", style: .default, handler:
+            {
+                (alert: UIAlertAction!) -> Void in
+                
+                
+                    
+                self.sortArray(textStr: "Ascending")
+                
+                
+               
+            })
+            optionMenu.addAction(deleteAction1)
+
+       // }
+        
+            let deleteAction2 = UIAlertAction(title: "Alphabetically: Z-A", style: .default, handler:
+            {
+                (alert: UIAlertAction!) -> Void in
+              //  let p240:String =  self.selectedDataModel?.quality240p?.url ?? ""
+                self.sortArray(textStr: "Descending")
+
+                
+              
+            })
+        
+            optionMenu.addAction(deleteAction2)
+
+        
+        
+      
+        
+       
+        
+       
+       
+        
+
+         
+
+        let cancelAction = UIAlertAction(title: "Cancel", style:.cancel, handler:
+        {
+            (alert: UIAlertAction!) -> Void in
+        })
+        
+        cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+
+        
+           optionMenu.addAction(cancelAction)
+          
+
+        self.present(optionMenu, animated: true, completion: nil)
+    }
+    
+    func loadAnimation(){
+       animationOn = true
+        collectionView.reloadData()
+    }
+    func hideAnimation(){
+        animationOn = false
+      // dataTableView.reloadData()
     }
 }
 

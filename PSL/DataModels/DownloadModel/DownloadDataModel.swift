@@ -8,5 +8,16 @@
 import UIKit
 
 class DownloadDataModel: NSObject {
+   var id = ""
+    var videoName = ""
+    var duration = ""
+    var path = ""
+    var thumnail = ""
+    
+    var isDownload = false
+
+    override init() {
+        
+    }
 
 }

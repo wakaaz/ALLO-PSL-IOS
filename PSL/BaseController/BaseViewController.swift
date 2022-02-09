@@ -6,16 +6,18 @@
 //
 
 import UIKit
+import MZDownloadManager
 
 class BaseViewController: UIViewController {
-
+   
     override func viewDidLoad() {
         super.viewDidLoad()
-
+         print("Base controler")
         // Do any additional setup after loading the view.
     }
     
-
+    
+   
     /*
     // MARK: - Navigation
 

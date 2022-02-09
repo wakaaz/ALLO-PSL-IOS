@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -27,9 +28,18 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G6T-MD-6ly">
                         <rect key="frame" x="16" y="16" width="60" height="60"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f79-9f-RIm">
+                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" name="linebg"/>
                         <constraints>
+                            <constraint firstItem="f79-9f-RIm" firstAttribute="top" secondItem="G6T-MD-6ly" secondAttribute="top" id="FSY-KM-keW"/>
+                            <constraint firstAttribute="bottom" secondItem="f79-9f-RIm" secondAttribute="bottom" id="YDR-BP-o1n"/>
                             <constraint firstAttribute="height" constant="60" id="hMg-zG-PU5"/>
+                            <constraint firstAttribute="trailing" secondItem="f79-9f-RIm" secondAttribute="trailing" id="jGT-Ww-MQb"/>
+                            <constraint firstItem="f79-9f-RIm" firstAttribute="leading" secondItem="G6T-MD-6ly" secondAttribute="leading" id="t19-af-Tfq"/>
                             <constraint firstAttribute="width" constant="60" id="xUn-AZ-mxM"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -63,6 +73,10 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lblTitle" destination="UtZ-bA-wfE" id="wd9-6V-ZPw"/>
+                <outlet property="videoImage" destination="f79-9f-RIm" id="uYG-bz-lDW"/>
+            </connections>
             <point key="canvasLocation" x="140.57971014492756" y="77.678571428571431"/>
         </tableViewCell>
     </objects>
@@ -71,7 +85,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="linebg">
-            <color red="0.8666666666666667" green="0.8666666666666667" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.92199999094009399" green="0.92199999094009399" blue="0.92199999094009399" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

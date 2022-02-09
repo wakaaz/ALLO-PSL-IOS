@@ -30,7 +30,12 @@ class AuthenticationPreference: NSObject {
         userDefault.set("", forKey: SessionToken)
         userDefault.synchronize()
     }
-    
+    static func setintroApp(value:Bool){
+        let userDefault = UserDefaults.standard
+        userDefault.set(value, forKey: introScreen)
+        userDefault.synchronize()
+        
+    }
     
     
     static func getSession ()->String{

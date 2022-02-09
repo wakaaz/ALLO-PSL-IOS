@@ -12,4 +12,9 @@ class MedaitorCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var lblSubHeading: UILabel!
     @IBOutlet weak var lblTypeName: UILabel!
     @IBOutlet weak var typeImage: UIImageView!
+    
+    @IBOutlet weak var s1: ShimmerView!
+    
+    @IBOutlet weak var s2: ShimmerView!
+    
 }

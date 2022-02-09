@@ -7,6 +7,10 @@
 
 import UIKit
 
-class MyIntroDataSource: NSObject {
-
+struct MyIntroDataSource{
+    
+    let numberOfPages = 3
+    
+    let fadeOutLastPage: Bool = false
+    
 }
