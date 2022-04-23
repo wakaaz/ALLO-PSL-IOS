@@ -1,0 +1,6 @@
+framework module Pods_PSL_PSLUITests {
+  umbrella header "Pods-PSL-PSLUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

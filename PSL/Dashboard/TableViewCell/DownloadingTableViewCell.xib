@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Inter-Medium.ttf">
+            <string>Inter-Medium</string>
+        </array>
+        <array key="Inter-Regular.ttf">
+            <string>Inter-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DownloadingTableViewCell" rowHeight="100" id="KGk-i7-Jjw" customClass="DownloadingTableViewCell" customModule="PSL" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="471" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="471" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7h6-D1-K8a" customClass="ShadowView" customModule="PSL" customModuleProvider="target">
+                        <rect key="frame" x="10" y="15" width="100" height="70"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dhu-Dy-Mmp">
+                                <rect key="frame" x="0.0" y="0.0" width="100" height="70"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S06-Cr-PdK">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="70"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="la" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="S06-Cr-PdK" secondAttribute="trailing" id="CQU-kV-YPd"/>
+                                    <constraint firstAttribute="bottom" secondItem="S06-Cr-PdK" secondAttribute="bottom" id="Rdh-Zi-aIO"/>
+                                    <constraint firstItem="S06-Cr-PdK" firstAttribute="leading" secondItem="dhu-Dy-Mmp" secondAttribute="leading" id="fQu-He-qkm"/>
+                                    <constraint firstItem="S06-Cr-PdK" firstAttribute="top" secondItem="dhu-Dy-Mmp" secondAttribute="top" id="r6x-ZD-Lvm"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dhu-Dy-Mmp" firstAttribute="leading" secondItem="7h6-D1-K8a" secondAttribute="leading" id="7M1-1l-eOT"/>
+                            <constraint firstAttribute="trailing" secondItem="dhu-Dy-Mmp" secondAttribute="trailing" id="SJd-2F-ovQ"/>
+                            <constraint firstItem="dhu-Dy-Mmp" firstAttribute="top" secondItem="7h6-D1-K8a" secondAttribute="top" id="Z3x-uq-Jd5"/>
+                            <constraint firstAttribute="width" constant="100" id="fME-Fx-Uue"/>
+                            <constraint firstAttribute="height" constant="70" id="s2G-2o-fxF"/>
+                            <constraint firstAttribute="bottom" secondItem="dhu-Dy-Mmp" secondAttribute="bottom" id="xnM-89-0KL"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.72961597710000003" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.20000000000000001"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="0.10000000000000001" height="0.10000000000000001"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x5m-6b-7BI">
+                        <rect key="frame" x="118" y="15" width="343" height="18.5"/>
+                        <fontDescription key="fontDescription" name="Inter-Medium" family="Inter" pointSize="15"/>
+                        <color key="textColor" name="labelcolor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KiV-o2-4x8">
+                        <rect key="frame" x="118" y="81" width="321" height="4"/>
+                    </progressView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xlp-Th-T5E">
+                        <rect key="frame" x="118" y="55" width="321" height="16"/>
+                        <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="13"/>
+                        <color key="textColor" name="labelcolor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="x5m-6b-7BI" secondAttribute="trailing" constant="10" id="7Uv-yS-5HD"/>
+                    <constraint firstItem="x5m-6b-7BI" firstAttribute="top" secondItem="7h6-D1-K8a" secondAttribute="top" id="Lq8-wQ-Ich"/>
+                    <constraint firstItem="KiV-o2-4x8" firstAttribute="bottom" secondItem="7h6-D1-K8a" secondAttribute="bottom" id="U9r-2t-pxF"/>
+                    <constraint firstItem="KiV-o2-4x8" firstAttribute="leading" secondItem="x5m-6b-7BI" secondAttribute="leading" id="YT4-fi-7si"/>
+                    <constraint firstItem="KiV-o2-4x8" firstAttribute="top" secondItem="xlp-Th-T5E" secondAttribute="bottom" constant="10" id="YX0-yo-Jtu"/>
+                    <constraint firstItem="7h6-D1-K8a" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="YnD-o8-pmI"/>
+                    <constraint firstItem="7h6-D1-K8a" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="alk-wF-Toz"/>
+                    <constraint firstItem="xlp-Th-T5E" firstAttribute="leading" secondItem="KiV-o2-4x8" secondAttribute="leading" id="bP8-Rc-eB2"/>
+                    <constraint firstAttribute="trailing" secondItem="KiV-o2-4x8" secondAttribute="trailing" constant="32" id="c1L-vi-ecj"/>
+                    <constraint firstItem="xlp-Th-T5E" firstAttribute="trailing" secondItem="KiV-o2-4x8" secondAttribute="trailing" id="lQi-e2-aAF"/>
+                    <constraint firstItem="x5m-6b-7BI" firstAttribute="leading" secondItem="7h6-D1-K8a" secondAttribute="trailing" constant="8" symbolic="YES" id="vDo-Mh-MrM"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="img" destination="S06-Cr-PdK" id="MFX-AF-OEG"/>
+                <outlet property="lblDetails" destination="xlp-Th-T5E" id="s6K-Zc-OY6"/>
+                <outlet property="lblTitle" destination="x5m-6b-7BI" id="iwx-9D-Lc2"/>
+                <outlet property="progressDownload" destination="KiV-o2-4x8" id="SwL-aa-HCl"/>
+            </connections>
+            <point key="canvasLocation" x="36.956521739130437" y="125.89285714285714"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="labelcolor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
