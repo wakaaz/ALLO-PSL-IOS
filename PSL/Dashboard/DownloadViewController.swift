@@ -353,8 +353,10 @@ class DownloadViewController: BaseViewController ,UITableViewDataSource, UITable
                 }
             
             if self.downloadManager != nil{
-                let downloadModel = self.downloadManager?.downloadingArray[indexPath.row] ?? MZDownloadModel()
-                cell.updateCellForRowAtIndexPath(indexPath, downloadModel: downloadModel)
+                if  let downloadModel = self.downloadManager?.downloadingArray[indexPath.row] {
+                    cell.updateCellForRowAtIndexPath(indexPath, downloadModel: downloadModel)
+
+                }
                 
             }
             

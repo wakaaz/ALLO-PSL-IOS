@@ -314,6 +314,12 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
              
                 
                 self.dictionaryCategories =  self.dictionaryCategories.filter(){$0.indexValue != self.selectedDataModel?.indexValue}
+                
+                
+                
+                
+                
+                
                 DispatchQueue.main.async {
                     self.setUpData()
                     self.setUpTableView()
@@ -352,11 +358,11 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
         
         
         let icon1 = UIImage(named: "downloadlesson")!
-          btnDownloadLesson.setImage(icon1, for: .normal)
+         /* btnDownloadLesson.setImage(icon1, for: .normal)
         btnDownloadLesson.imageView?.contentMode = .scaleAspectFit
         btnDownloadLesson.imageEdgeInsets = UIEdgeInsets(top: 0, left: -20, bottom: 0, right: 0)
         btnDownloadLesson.tintColor = UIColor.white
-        btnDownloadLesson.layer.cornerRadius = 5
+        btnDownloadLesson.layer.cornerRadius = 5*/
         
         
         let icon2 = UIImage(named: "viewlesson")!
@@ -453,13 +459,13 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
             self.dictionaryCategories = sortedElementsAndIndices
         }else{
             let sortedElementsAndIndices = self.dictionaryCategoriesTemp.sorted(by: {
-                self.selectedDataModel?.title ?? "" < $1.title ?? ""
+                self.selectedDataModel?.indexValue ?? 0 > $1.indexValue ?? 0
             })
             
             self.dictionaryCategories = sortedElementsAndIndices
         }
         
-        self.dictionaryCategories =  self.dictionaryCategories.filter(){$0.id != self.selectedDataModel?.id}
+        self.dictionaryCategories =  self.dictionaryCategories.filter(){$0.indexValue != self.selectedDataModel?.indexValue}
         tableView.reloadData()
       
     }

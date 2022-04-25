@@ -1680,19 +1680,8 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="EOh-Rw-cZb">
                                                 <rect key="frame" x="16" y="125" width="382" height="0.0"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eAb-rX-waE">
-                                                        <rect key="frame" x="0.0" y="0.0" width="186" height="0.0"/>
-                                                        <color key="backgroundColor" red="0.0" green="0.61960784313725492" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="14"/>
-                                                        <state key="normal" title="Download Lesson">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="onTappedDownloadLesson:" destination="Q2f-xJ-fpS" eventType="touchUpInside" id="zeI-oc-FzQ"/>
-                                                        </connections>
-                                                    </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wj0-aQ-nVs">
-                                                        <rect key="frame" x="196" y="0.0" width="186" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="0.0"/>
                                                         <color key="backgroundColor" red="0.0" green="0.61960784313725492" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="14"/>
                                                         <state key="normal" title="View Lesson">
@@ -1810,7 +1799,6 @@
                     <connections>
                         <outlet property="autoplaysSwitch" destination="qO7-jF-vxP" id="vAI-0r-QA5"/>
                         <outlet property="btnChangeLanguage" destination="PG8-zv-Saa" id="QOm-O1-VeJ"/>
-                        <outlet property="btnDownloadLesson" destination="eAb-rX-waE" id="u18-vG-Sau"/>
                         <outlet property="btnPlay" destination="5zb-hM-EYH" id="QTN-HQ-Kpg"/>
                         <outlet property="btnViewLesson" destination="wj0-aQ-nVs" id="iVz-0x-ORa"/>
                         <outlet property="btnplay2" destination="ZLU-BE-jVZ" id="N7B-Ck-PBD"/>
