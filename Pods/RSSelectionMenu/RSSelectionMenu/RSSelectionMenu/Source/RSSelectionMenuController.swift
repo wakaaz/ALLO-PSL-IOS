@@ -444,10 +444,16 @@ extension RSSelectionMenu {
         let doneAction = UIAlertAction(title: actionTitle, style: .default) { [weak self] (doneButton) in
             self?.menuWillDismiss()
         }
-        
+        let actionCancelTitle = "Cancel"
+        let cancelAction = UIAlertAction(title: actionCancelTitle, style: .default) { [weak self] (cancelButton) in
+            self?.menuWillDismiss()
+        }
+        cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
         // add done action
         if (tableView?.selectionStyle == .multiple || !self.dismissAutomatically)  {
             alertController.addAction(doneAction)
+            alertController.addAction(cancelAction)
+
         }
         
         let viewHeight = height ?? 350

@@ -57,7 +57,7 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
     var selectType:Int = 0
     var selectedDataModel:DictionaryDatum? = nil
     var AutoselectedDataModel:DictionaryDatum? = nil
-    
+    var selectedIndex:Int = 0
     
     
     @IBOutlet weak var constraintChangeLanguageTop: NSLayoutConstraint!
@@ -306,14 +306,14 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
                     self.dictionaryCategories = sortedElementsAndIndices
                 }else{
                     let sortedElementsAndIndices = self.dictionaryCategoriesTemp.sorted(by: {
-                        self.selectedDataModel?.title ?? "" < $1.title ?? ""
+                        self.selectedDataModel?.indexValue ?? 0  > $1.indexValue ?? 0
                     })
                     
                     self.dictionaryCategories = sortedElementsAndIndices
                 }
              
                 
-                self.dictionaryCategories =  self.dictionaryCategories.filter(){$0.id != self.selectedDataModel?.id}
+                self.dictionaryCategories =  self.dictionaryCategories.filter(){$0.indexValue != self.selectedDataModel?.indexValue}
                 DispatchQueue.main.async {
                     self.setUpData()
                     self.setUpTableView()
@@ -1973,7 +1973,6 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
             
         }
         selectionMenu.show(style: .actionSheet(title: nil, action: "Done", height:(Double(simpleDataArray.count) * 50)), from: self)
-        
         // show
         
     }
@@ -2403,13 +2402,15 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
             //   self?.lblFilter.text =
         }
         
-        
         selectionMenu.onDismiss = { items in
-            self.downloadselectedArray = items
+           // self.downloadselectedArray = items
             if self.presentedViewController as? UIAlertController != nil {
                 selectionMenu.dismiss()
             }
-            self.downlessonaction(isDownload: isDownload)
+            if(self.downloadselectedArray.count > 0){
+                self.downlessonaction(isDownload: isDownload)
+
+            }
             //print("hello"+String(self.simplesSelectedArray.count))
             
         }
@@ -2417,8 +2418,8 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
         if UIScreen.main.nativeBounds.height >= 2532{
             heightDef = 80
         }
-        if downloadselectedArray.count > 1{
-            selectionMenu.show(style: .actionSheet(title: nil, action: "Done", height:(Double(simpleDataArray.count) * Double(heightDef))), from: self)
+        if downloadDataArray.count > 1{
+            selectionMenu.show(style: .actionSheet(title: nil, action: "Done", height:(Double(downloadDataArray.count) * Double(heightDef))), from: self)
         }else{
             selectionMenu.show(style: .actionSheet(title: nil, action: "Done", height:Double(heightDef)), from: self)
         }
@@ -2470,6 +2471,7 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
                do {
                    try FileManager.default.copyItem(at: location, to: destinationURL)
                    //self.pdfURL = destinationURL
+                   print()
                 filename =  filename.replacingOccurrences(of: "_" , with: " ")
                 scheduleNotification(fileName: filename)
                } catch let error {

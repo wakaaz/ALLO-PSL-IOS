@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "510EE8BD-9013-4419-80C1-630873F5B6C9"
+            uuid = "A90FA8ED-8473-4A0F-BFD9-B9F6DD563397"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PSL/AppDelegate.swift"
+            filePath = "PSL/MedaitorSection/ChildMedaitorViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
-            landmarkName = "application(_:handleEventsForBackgroundURLSession:completionHandler:)"
+            startingLineNumber = "625"
+            endingLineNumber = "625"
+            landmarkName = "requestLessonPayload()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

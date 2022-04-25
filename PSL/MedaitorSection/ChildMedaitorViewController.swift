@@ -299,7 +299,7 @@ class ChildMedaitorViewController: UIViewController,UITableViewDataSource, UITab
         let dataModel = dictionaryCategories[indexPath.row]
        // let result = returnChunk(index: indexPath.row)
        
-        navigateToChild(selectedModel: dataModel, list: dictionaryCategories)
+        navigateToChild(selectedModel: dataModel, list: dictionaryCategories, index: indexPath.row)
         
        /* if isEnglishOn {
             let dataModel = dictionaryCategories[indexPath.row]
@@ -402,7 +402,15 @@ class ChildMedaitorViewController: UIViewController,UITableViewDataSource, UITab
                 guard let model = response.value else { return }
                 if let responseCode = model.code {
                     if responseCode ==  200{
-                        if let dicList = model.data, !dicList.isEmpty {
+                        if var dicList = model.data, !dicList.isEmpty {
+                            for i in 0..<dicList.count {
+                               
+                                var model = dicList[i]
+                                model.indexValue = i
+                                dicList[i] = model
+                                
+                                
+                            }
                             self.dictionaryCategories =  dicList
                         }
                         self.hideAnimation()
@@ -438,7 +446,15 @@ class ChildMedaitorViewController: UIViewController,UITableViewDataSource, UITab
                 guard let model = response.value else { return }
                 if let responseCode = model.code {
                     if responseCode ==  200{
-                        if let dicList = model.data, !dicList.isEmpty {
+                        if var dicList = model.data, !dicList.isEmpty {
+                            for i in 0..<dicList.count {
+                               
+                                var model = dicList[i]
+                                model.indexValue = i
+                                dicList[i] = model
+                                
+                                
+                            }
                             self.dictionaryCategories =  dicList
                             self.tempdictionaryCategories =  dicList
                             
@@ -475,7 +491,16 @@ class ChildMedaitorViewController: UIViewController,UITableViewDataSource, UITab
                 guard let model = response.value else { return }
                 if let responseCode = model.code {
                     if responseCode ==  200{
-                        if let dicList = model.data, !dicList.isEmpty {
+                        if var dicList = model.data, !dicList.isEmpty {
+                            
+                            for i in 0..<dicList.count {
+                               
+                                var model = dicList[i]
+                                model.indexValue = i
+                                dicList[i] = model
+                                
+                                
+                            }
                             self.dictionaryCategories =  dicList
                             self.tempdictionaryCategories =  dicList
                             
@@ -532,7 +557,25 @@ class ChildMedaitorViewController: UIViewController,UITableViewDataSource, UITab
                 guard let model = response.value else { return }
                 if let responseCode = model.code {
                     if responseCode ==  200{
-                        if let dicList = model.data, !dicList.isEmpty {
+                        if var dicList = model.data, !dicList.isEmpty {
+                            
+                            for i in 0..<self.dictionaryCategories.count {
+                                var model =  self.dictionaryCategories[i]
+                                if model.language == "english"{
+                                    self.storyEnglishTypes.append(model)
+                                }else{
+                                    self.storyUrduTypes.append(model)
+                                }
+                                
+                            }
+                            for i in 0..<dicList.count {
+                               
+                                var model = dicList[i]
+                                model.indexValue = i
+                                dicList[i] = model
+                                
+                                
+                            }
                             self.dictionaryCategories =  dicList
                             self.tempdictionaryCategories =  dicList
                             
@@ -569,8 +612,18 @@ class ChildMedaitorViewController: UIViewController,UITableViewDataSource, UITab
                 guard let model = response.value else { return }
                 if let responseCode = model.code {
                     if responseCode ==  200{
-                        if let dicList = model.data, !dicList.isEmpty {
+                        if var dicList = model.data, !dicList.isEmpty {
+                           
+                            for i in 0..<dicList.count {
+                               
+                                var model = dicList[i]
+                                model.indexValue = i
+                                dicList[i] = model
+                                
+                                
+                            }
                             self.dictionaryCategories =  dicList
+                            
                             self.tempdictionaryCategories =  dicList
                         }
                         self.hideAnimation()
@@ -588,7 +641,7 @@ class ChildMedaitorViewController: UIViewController,UITableViewDataSource, UITab
         }
     }
     
-    func navigateToChild(selectedModel:DictionaryDatum,list:[DictionaryDatum]){
+    func navigateToChild(selectedModel:DictionaryDatum,list:[DictionaryDatum],index:Int){
         
         let mainstoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let newViewcontroller:PlayerViewController  = mainstoryboard.instantiateViewController(withIdentifier: "PlayerViewController") as! PlayerViewController
@@ -598,7 +651,7 @@ class ChildMedaitorViewController: UIViewController,UITableViewDataSource, UITab
         newViewcontroller.isEnglishOn = isEnglishOn
         newViewcontroller.storyEnglishTypes =  storyEnglishTypes
         newViewcontroller.storyUrduTypes =  storyUrduTypes
-
+        newViewcontroller.selectedIndex = index
         self.navigationController?.pushViewController(newViewcontroller, animated: true)
     }
     

@@ -30,6 +30,7 @@ struct DictionaryDatum : Decodable {
         let language : String?
         let documents : [Document]?
 
+        var indexValue : Int = 0
 
         enum CodingKeys: String, CodingKey {
                 case quality1080p = "1080p"
