@@ -340,29 +340,31 @@ class ChildMedaitorViewController: UIViewController,UITableViewDataSource, UITab
             imageUrlString =  imageUrlString.removingPercentEncoding ?? ""
             if !imageUrlString.isEmpty{
                 let imageRequest = URLRequest(url: URL(string: imageUrlString)!)
-                let finalurl:String = imageUrlString.removingPercentEncoding ?? ""
-                if let image = imageCache.image(withIdentifier: finalurl)
-                {
-                    c.typeImage.image = image
-                }else{
-                    c.typeImage.af_setImage(withURL: URL(string: finalurl)!, completion: { response in
-                        switch response.result {
-                        
-                        case .success:
-                            guard let image = response.value else { return }
-                            c.typeImage.image = image
+                if let finalurl:String = imageUrlString.removingPercentEncoding {
+                    if let image = imageCache.image(withIdentifier: finalurl)
+                    {
+                        c.typeImage.image = image
+                    }else{
+                        c.typeImage.af_setImage(withURL: URL(string: finalurl)!, completion: { response in
+                            switch response.result {
                             
+                            case .success:
+                                guard let image = response.value else { return }
+                                c.typeImage.image = image
+                                
+                                
+                                self.imageCache.add(image, withIdentifier: finalurl)
+                                
+                            case .failure(let error):
+                                print(error)
+                                
+                                
+                            }
                             
-                            self.imageCache.add(image, withIdentifier: finalurl)
-                            
-                        case .failure(let error):
-                            print(error)
-                            
-                            
-                        }
-                        
-                    })
+                        })
+                    }
                 }
+               
             }
             
         }

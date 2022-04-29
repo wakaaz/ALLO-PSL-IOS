@@ -458,6 +458,11 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
             
             self.dictionaryCategories = sortedElementsAndIndices
         }else{
+            
+            
+            
+           
+            
             let sortedElementsAndIndices = self.dictionaryCategoriesTemp.sorted(by: {
                 self.selectedDataModel?.indexValue ?? 0 > $1.indexValue ?? 0
             })
@@ -466,10 +471,34 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
         }
         
         self.dictionaryCategories =  self.dictionaryCategories.filter(){$0.indexValue != self.selectedDataModel?.indexValue}
+       
+        self.dictionaryCategories = sortingAlogaritm(indexPosition: selectedDataModel?.indexValue ?? 0, list: self.dictionaryCategories)
         tableView.reloadData()
       
     }
     
+    func sortingAlogaritm(indexPosition:Int,list:[DictionaryDatum])->[DictionaryDatum]{
+        
+        var beforIndexList = [DictionaryDatum]()
+        var afterIndexList = [DictionaryDatum]()
+        if(indexPosition == 0){
+            beforIndexList.append(contentsOf: list)
+        }else {
+            for i in 0..<list.count {
+               
+                var model = list[i]
+                if(indexPosition > model.indexValue){
+                    afterIndexList.append(model)
+                }else{
+                    beforIndexList.append(model)
+                }
+                
+                
+            }
+        }
+        let finalList:[DictionaryDatum] = beforIndexList + afterIndexList
+        return finalList
+    }
     func setUpTableView(){
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -722,27 +751,29 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
             imageUrlString =  imageUrlString.removingPercentEncoding ?? ""
             if !imageUrlString.isEmpty{
                 let imageRequest = URLRequest(url: URL(string: imageUrlString)!)
-                let finalurl:String = imageUrlString.removingPercentEncoding ?? ""
-                if let image = imageCache.image(withIdentifier: finalurl)
-                {
-                    c.typeImage.image = image
-                }else{
-                    c.typeImage.af_setImage(withURL: URL(string: finalurl)!, completion: { response in
-                        switch response.result {
-                        
-                        case .success:
-                            guard let image = response.value else { return }
-                            c.typeImage.image = image
-                            self.imageCache.add(image, withIdentifier: finalurl)
+                if let finalurl:String = imageUrlString.removingPercentEncoding {
+                    if let image = imageCache.image(withIdentifier: finalurl)
+                    {
+                        c.typeImage.image = image
+                    }else{
+                        c.typeImage.af_setImage(withURL: URL(string: finalurl)!, completion: { response in
+                            switch response.result {
                             
-                        case .failure(let error):
-                            print(error)
+                            case .success:
+                                guard let image = response.value else { return }
+                                c.typeImage.image = image
+                                self.imageCache.add(image, withIdentifier: finalurl)
+                                
+                            case .failure(let error):
+                                print(error)
+                                
+                                
+                            }
                             
-                            
-                        }
-                        
-                    })
+                        })
+                    }
                 }
+               
             }
             
         }
