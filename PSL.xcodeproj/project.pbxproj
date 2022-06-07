@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		525AFD0B284F59C00009DB21 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525AFD0A284F59C00009DB21 /* AppUtility.swift */; };
 		91596EE626EB546C00775DD0 /* SharingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91596EE526EB546C00775DD0 /* SharingManager.swift */; };
 		91891C7A26EA0DFE00048201 /* LoadMoreActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91891C7926EA0DFE00048201 /* LoadMoreActivityIndicator.swift */; };
 		B2C41905F73984C2F90B5165 /* Pods_PSLTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A77D8E54E97D67421C39B7 /* Pods_PSLTests.framework */; };
@@ -126,6 +127,7 @@
 /* Begin PBXFileReference section */
 		185A230BC0FE74BB4FAFA94B /* Pods-PSL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PSL.debug.xcconfig"; path = "Target Support Files/Pods-PSL/Pods-PSL.debug.xcconfig"; sourceTree = "<group>"; };
 		1FCD35BB309864A36F7BABFD /* Pods-PSLTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PSLTests.release.xcconfig"; path = "Target Support Files/Pods-PSLTests/Pods-PSLTests.release.xcconfig"; sourceTree = "<group>"; };
+		525AFD0A284F59C00009DB21 /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
 		6135E6DA30FC73169C2E8334 /* Pods-PSLTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PSLTests.debug.xcconfig"; path = "Target Support Files/Pods-PSLTests/Pods-PSLTests.debug.xcconfig"; sourceTree = "<group>"; };
 		79850E42F6650B94AC283368 /* Pods-PSL-PSLUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PSL-PSLUITests.debug.xcconfig"; path = "Target Support Files/Pods-PSL-PSLUITests/Pods-PSL-PSLUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		81758C4179842429886DC4EE /* Pods_PSL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PSL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -345,6 +347,7 @@
 				FA4C9834261EB6F3005DB0F5 /* CustomSlider.swift */,
 				91891C7926EA0DFE00048201 /* LoadMoreActivityIndicator.swift */,
 				91596EE526EB546C00775DD0 /* SharingManager.swift */,
+				525AFD0A284F59C00009DB21 /* AppUtility.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -922,6 +925,7 @@
 				91891C7A26EA0DFE00048201 /* LoadMoreActivityIndicator.swift in Sources */,
 				FA4B212E260A6FE2006B8759 /* MainPreference.swift in Sources */,
 				FA37431325F1653900B2525E /* DownloadViewController.swift in Sources */,
+				525AFD0B284F59C00009DB21 /* AppUtility.swift in Sources */,
 				91596EE626EB546C00775DD0 /* SharingManager.swift in Sources */,
 				FA407372260F5962009CB95B /* FavouriteRoot.swift in Sources */,
 				FA3F83EF260B46370031003D /* DictionaryObject.swift in Sources */,

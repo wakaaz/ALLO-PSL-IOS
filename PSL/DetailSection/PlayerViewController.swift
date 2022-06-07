@@ -441,7 +441,11 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
             self.player?.pause()
             
         }
+        
+
         NotificationCenter.default.post(name: Notification.Name("avPlayerDidDismiss"), object: nil, userInfo: nil)
+        AppUtility.lockOrientation(.all)
+
     }
     
     func setUpSorting(){
@@ -1735,12 +1739,12 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
     
     
     @IBAction func onTappedFullScreen(_ sender: Any) {
-        var value  = UIInterfaceOrientation.landscapeRight.rawValue
+        var value  = UIInterfaceOrientation.landscapeLeft.rawValue
         if UIApplication.shared.statusBarOrientation == .landscapeLeft || UIApplication.shared.statusBarOrientation == .landscapeRight{
             value = UIInterfaceOrientation.portrait.rawValue
             self.navigationController?.navigationBar.isHidden =  false
         }else{
-            self.navigationController?.navigationBar.isHidden =  true
+            self.navigationController?.navigationBar.isHidden =  false
 
         }
         
@@ -1818,15 +1822,25 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
                 UIView.animate(withDuration: timeDuration, animations: {
                     let degrees : Double = 0; //the value in degrees
                     let affineTransform = CGAffineTransform(rotationAngle: CGFloat(degrees * .pi/180))
-                    self.mainView!.transform = CGAffineTransform(rotationAngle: CGFloat(degrees * .pi/180))
-                    self.videoplayer.transform = affineTransform
+                   self.mainView!.transform = CGAffineTransform(rotationAngle: CGFloat(degrees * .pi/180))
+                   self.videoplayer.transform = affineTransform
                     
                     
                 })
+            }else if UIDevice.current.orientation == .landscapeRight{
+                let degrees : Double = -180; //the value in degrees
+                let affineTransform = CGAffineTransform(rotationAngle: CGFloat(degrees * .pi/90))
+               self.mainView!.transform = CGAffineTransform(rotationAngle: CGFloat(degrees * .pi/90))
+               self.videoplayer.transform = affineTransform
             }else{
                 UIView.animate(withDuration: timeDuration, animations: {
                     let degrees : Double = 180; //the value in degrees
                     self.mainView!.transform = CGAffineTransform(rotationAngle: CGFloat(degrees * .pi/180))
+                   
+                    //self.mainView.frame = someRect
+                    //self.videoplayer.frame = someRect
+                    // self.videoplayer.layer.removeFromSuperlayer()
+                    
                     
                 })
             }
@@ -1846,9 +1860,13 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
                 print(size.height)
                 print(size.width)
                 
-                var sizeheight = size.height
+                let sizeheight = size.height
+                var minusheight = 0
+                if UIScreen.main.nativeBounds.height >= 2532{
+                    minusheight = 52
+                }
                 self.nsMainViewHeight.constant =  sizeheight
-                let  definesize = CGSize(width:  self.videoplayer.frame.width, height:  sizeheight)
+                let  definesize = CGSize(width:  self.videoplayer.frame.width, height:  sizeheight - CGFloat(minusheight))
                 self.videoplayer.frame.size = definesize
                 
                 let someRect = CGRect(x: 0, y: 0, width: definesize.width, height: sizeheight)
@@ -1888,6 +1906,7 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
                     self.mainView!.transform = CGAffineTransform(rotationAngle: CGFloat(degrees * .pi/180))
                     
                 })
+                  
             }else{
                 UIView.animate(withDuration: timeDuration, animations: {
                     let degrees : Double = 0; //the value in degrees
@@ -2562,10 +2581,9 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
     
     
     
+   
     
     
-    
-    
-
+   
    
 }
