@@ -1861,9 +1861,12 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
                 print(size.width)
                 
                 let sizeheight = size.height
-                var minusheight = 0
-                if UIScreen.main.nativeBounds.height >= 2532{
+                var minusheight = 40
+                if UIScreen.main.nativeBounds.height >= 2778{
+                    minusheight = 72
+                }else if  UIScreen.main.nativeBounds.height >= 2532{
                     minusheight = 52
+
                 }
                 self.nsMainViewHeight.constant =  sizeheight
                 let  definesize = CGSize(width:  self.videoplayer.frame.width, height:  sizeheight - CGFloat(minusheight))

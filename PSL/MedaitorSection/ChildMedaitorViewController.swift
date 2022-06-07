@@ -85,7 +85,7 @@ class ChildMedaitorViewController: UIViewController,UITableViewDataSource, UITab
     override func viewWillAppear(_ animated: Bool) {
        super.viewWillAppear(animated)
        
-       AppUtility.lockOrientation(.portrait)
+    //   AppUtility.lockOrientation(.portrait)
        // Or to rotate and lock
        // AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
        
@@ -95,7 +95,7 @@ class ChildMedaitorViewController: UIViewController,UITableViewDataSource, UITab
        super.viewWillDisappear(animated)
        
        // Don't forget to reset when view is being removed
-      AppUtility.lockOrientation(.all)
+     // AppUtility.lockOrientation(.all)
    }
     
     func setUpRequest(){

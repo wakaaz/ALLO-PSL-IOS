@@ -81,7 +81,7 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
     override func viewWillAppear(_ animated: Bool) {
        super.viewWillAppear(animated)
        
-       AppUtility.lockOrientation(.portrait)
+      // AppUtility.lockOrientation(.portrait)
        // Or to rotate and lock
        // AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
        
@@ -91,7 +91,7 @@ class MedaitorViewController: UIViewController, UICollectionViewDataSource, UICo
        super.viewWillDisappear(animated)
        
        // Don't forget to reset when view is being removed
-       AppUtility.lockOrientation(.all)
+      // AppUtility.lockOrientation(.all)
    }
     func setUpTitle(){
         
