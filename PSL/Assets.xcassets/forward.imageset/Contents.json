@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "fast-forward.png",
+      "filename" : "skip-track-4@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "fast-forward@2x.png",
+      "filename" : "skip-track-4@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "fast-forward@3x.png",
+      "filename" : "skip-track-4@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

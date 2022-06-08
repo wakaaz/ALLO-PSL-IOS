@@ -19,6 +19,7 @@ import UserNotifications
 
 class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableViewDelegate,URLSessionDownloadDelegate{
     
+    @IBOutlet weak var parentView: UIView!
     
     @IBOutlet weak var viemoView: UIView!
     
@@ -1739,12 +1740,21 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
     
     
     @IBAction func onTappedFullScreen(_ sender: Any) {
-        var value  = UIInterfaceOrientation.landscapeLeft.rawValue
+        var value  = UIInterfaceOrientation.landscapeRight.rawValue
         if UIApplication.shared.statusBarOrientation == .landscapeLeft || UIApplication.shared.statusBarOrientation == .landscapeRight{
             value = UIInterfaceOrientation.portrait.rawValue
+            if #available(iOS 13.0, *) {
+                parentView.backgroundColor =  UIColor.systemBackground
+            } else {
+                // Fallback on earlier versions
+                parentView.backgroundColor =  UIColor.white
+
+            }
             self.navigationController?.navigationBar.isHidden =  false
         }else{
-            self.navigationController?.navigationBar.isHidden =  false
+            parentView.backgroundColor =  UIColor.black
+
+            self.navigationController?.navigationBar.isHidden =  true
 
         }
         
@@ -1817,7 +1827,9 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
         
         
         if UIDevice.current.orientation.isLandscape {
-            
+            parentView.backgroundColor =  UIColor.black
+
+            self.navigationController?.navigationBar.isHidden =  true
             if UIDevice.current.orientation == .landscapeLeft{
                 UIView.animate(withDuration: timeDuration, animations: {
                     let degrees : Double = 0; //the value in degrees
@@ -1827,15 +1839,15 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
                     
                     
                 })
-            }else if UIDevice.current.orientation == .landscapeRight{
+            }/*else if UIDevice.current.orientation == .landscapeRight{
                 let degrees : Double = -180; //the value in degrees
                 let affineTransform = CGAffineTransform(rotationAngle: CGFloat(degrees * .pi/90))
                self.mainView!.transform = CGAffineTransform(rotationAngle: CGFloat(degrees * .pi/90))
                self.videoplayer.transform = affineTransform
-            }else{
+            }*/else{
                 UIView.animate(withDuration: timeDuration, animations: {
-                    let degrees : Double = 180; //the value in degrees
-                    self.mainView!.transform = CGAffineTransform(rotationAngle: CGFloat(degrees * .pi/180))
+                    let degrees : Double = -180; //the value in degrees
+                    self.mainView!.transform = CGAffineTransform(rotationAngle: CGFloat(degrees * .pi/90))
                    
                     //self.mainView.frame = someRect
                     //self.videoplayer.frame = someRect
@@ -1869,7 +1881,7 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
 
                 }
                 self.nsMainViewHeight.constant =  sizeheight
-                let  definesize = CGSize(width:  self.videoplayer.frame.width, height:  sizeheight - CGFloat(minusheight))
+                let  definesize = CGSize(width:  self.videoplayer.frame.width, height:  sizeheight)
                 self.videoplayer.frame.size = definesize
                 
                 let someRect = CGRect(x: 0, y: 0, width: definesize.width, height: sizeheight)
@@ -1903,16 +1915,30 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
             }
         } else {
             
+            if #available(iOS 13.0, *) {
+                parentView.backgroundColor =  UIColor.systemBackground
+            } else {
+                // Fallback on earlier versions
+                parentView.backgroundColor =  UIColor.white
+
+            }
+
+            self.navigationController?.navigationBar.isHidden =  false
+            
             if UIDevice.current.orientation == .portraitUpsideDown{
                 UIView.animate(withDuration: timeDuration, animations: {
                     let degrees : Double = -90; //the value in degrees
+
                     self.mainView!.transform = CGAffineTransform(rotationAngle: CGFloat(degrees * .pi/180))
-                    
+                  
+
                 })
                   
             }else{
                 UIView.animate(withDuration: timeDuration, animations: {
                     let degrees : Double = 0; //the value in degrees
+           
+
                     self.mainView!.transform = CGAffineTransform(rotationAngle: CGFloat(degrees * .pi/180))
                     
                 })
@@ -1934,8 +1960,8 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
                 //self.playerLayer?.videoGravity = .resizeAspect
               
 
-                // let affineTransform = CGAffineTransform(rotationAngle: de)
-                //   self.playerLayer?.frame.size = self.definesize!
+              //let affineTransform = CGAffineTransform(rotationAngle: de)
+                 // self.playerLayer?.frame.size = self.definesize!
                 //self.playerLayer?.videoGravity = .resizeAspect
                 
             }
