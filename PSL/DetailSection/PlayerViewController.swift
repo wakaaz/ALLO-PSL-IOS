@@ -84,6 +84,7 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
     
     @IBOutlet weak var btnDownloadLesson: UIButton!
     
+    @IBOutlet weak var viewTouchListner: UIView!
     @IBOutlet weak var btnViewLesson: UIButton!
     var videourl = "https://player.vimeo.com/external/543031368.sd.mp4?s=baaefe7f28dd4f41d30628f7aba4920fe29eb9bb&profile_id=164"
     /*
@@ -126,6 +127,7 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
     @IBOutlet weak var downloadIamge: UIImageView!
     
     
+    @IBOutlet weak var viewFullScreen: UIView!
     var QualityType:Int =  1
     
     var isSingleVideo = false
@@ -137,6 +139,8 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
     
     var speedRate = 0.1
     
+    
+    @IBOutlet weak var btnfullscreen: UIButton!
     /*
      // Selection list
      */
@@ -165,7 +169,8 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
         
         // self.tabBarController?.tabBar.layer.zPosition = -15
         self.tabBarController?.tabBar.isHidden = true
-        
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkFullScreen(sender:)))
+        self.viewFullScreen.addGestureRecognizer(gesture)
         // Do any additional setup after loading the view.
         if isSingleVideo{
             self.autoplaysSwitch.isOn = false
@@ -1653,6 +1658,34 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
             
         }
     }
+    
+    @objc func checkFullScreen(sender : UITapGestureRecognizer) {
+        // Do what you want
+        var value  = UIInterfaceOrientation.landscapeRight.rawValue
+        if UIApplication.shared.statusBarOrientation == .landscapeLeft || UIApplication.shared.statusBarOrientation == .landscapeRight{
+            value = UIInterfaceOrientation.portrait.rawValue
+            if #available(iOS 13.0, *) {
+                parentView.backgroundColor =  UIColor.systemBackground
+            } else {
+                // Fallback on earlier versions
+                parentView.backgroundColor =  UIColor.white
+
+            }
+            self.navigationController?.navigationBar.isHidden =  false
+        }else{
+            parentView.backgroundColor =  UIColor.black
+
+            self.navigationController?.navigationBar.isHidden =  true
+
+        }
+        
+        UIDevice.current.setValue(value, forKey: "orientation")
+        UIViewController.attemptRotationToDeviceOrientation()
+        playerLayer?.frame = self.videoplayer.bounds
+        //playerLayer?.videoGravity = .resizeAspect
+    }
+    
+    
     @objc func checkAction(sender : UITapGestureRecognizer) {
         // Do what you want
         print("hello")
@@ -1668,6 +1701,7 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
                 options: [],
                 animations: {
                     self.playerBar.isHidden =  false
+                    self.btnfullscreen.isHidden = false
                 },
                 completion: nil
             )
@@ -1682,7 +1716,9 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
                 initialSpringVelocity: 1,
                 options: [],
                 animations: {
-                    self.playerBar.isHidden =  true
+                   self.playerBar.isHidden =  true
+                   self.btnfullscreen.isHidden = true
+
                 },
                 completion: nil
             )
@@ -1776,7 +1812,7 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
             let newStatus = AVPlayer.TimeControlStatus(rawValue: newValue)
             if newStatus != oldStatus {
                 DispatchQueue.main.async {[weak self] in
-                    if newStatus == .playing || newStatus == .paused {
+                    if newStatus == .playing {
                         self?.loaderView.isHidden = true
                        // self?.playerBar.isHidden =  true
                        /* DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
@@ -1790,11 +1826,31 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
                             initialSpringVelocity: 1,
                             options: [],
                             animations: {
-                                self?.playerBar.isHidden =  true
+                               self?.playerBar.isHidden =  true
+                              self?.btnfullscreen.isHidden =  true
+                                self?.optionView.isHidden = true
                             },
                             completion: nil
                         )
-                    } else {
+                    }else if(newStatus == .paused){
+                        self?.loaderView.isHidden = true
+                        UIView.animate(
+                            withDuration: 0.35,
+                            delay: 5.0,
+                            usingSpringWithDamping: 0.9,
+                            initialSpringVelocity: 1,
+                            options: [],
+                            animations: {
+                               self?.playerBar.isHidden =  false
+                               self?.btnfullscreen.isHidden =  false
+                                self?.optionView.isHidden = false
+
+                            },
+                            completion: nil
+                        )
+                    }
+                    
+                    else {
                         self?.loaderView.isHidden = false
                         
                         UIView.animate(
@@ -1804,7 +1860,10 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
                             initialSpringVelocity: 1,
                             options: [],
                             animations: {
-                                self?.playerBar.isHidden =  false
+                               self?.playerBar.isHidden =  false
+                               self?.btnfullscreen.isHidden =  false
+                                self?.optionView.isHidden = false
+
                             },
                             completion: nil
                         )
@@ -1896,7 +1955,6 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
                 
                 self.playerLayer = AVPlayerLayer(player: self.player)
                 self.videoplayer.layer.addSublayer(self.playerLayer!)
-                
                 
                 //self.playerLayer?.frame.size = self.mainView.frame.size//bounds of the view in which AVPlayer should be displayed
                 // playerLayer?.videoGravity = .resizeAspect
@@ -2590,6 +2648,7 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
                 options: [],
                 animations: {
                     self.playerBar.isHidden =  false
+                    self.btnfullscreen.isHidden =  false
                 },
                 completion: nil
             )
@@ -2602,6 +2661,8 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
                 options: [],
                 animations: {
                     self.playerBar.isHidden =  true
+                    self.btnfullscreen.isHidden =  true
+
                 },
                 completion: nil
             )
