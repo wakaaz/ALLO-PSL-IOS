@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "homescreen-banner-1.png",
+      "filename" : "iOS1 - Light.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "homescreen-banner.png",
+      "filename" : "iOS1 - Dark.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "homescreen-banner@2x-1.png",
+      "filename" : "iOS2 - Light.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "homescreen-banner@2x.png",
+      "filename" : "iOS2 - Dark.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "homescreen-banner@3x-1.png",
+      "filename" : "iOS3 - Light.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "homescreen-banner@3x.png",
+      "filename" : "iOS3 - Dark.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

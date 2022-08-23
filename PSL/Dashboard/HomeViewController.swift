@@ -60,7 +60,8 @@ class HomeViewController: UIViewController,UISearchBarDelegate {
         }
         print(checkRecord())
         self.hideKeyboardWhenTappedAround()
-         let text  = "SEARCH FROM\nMORE THEN 6,000\nPSL DICTIONARY\nWORDS"
+        stepUpSearchBar()
+        /* let text  = "SEARCH FROM\nMORE THEN 6,000\nPSL DICTIONARY\nWORDS"
         // Do any additional setup after loading the view.
         stepUpSearchBar()
         var myMutableString = NSMutableAttributedString()
@@ -69,12 +70,12 @@ class HomeViewController: UIViewController,UISearchBarDelegate {
         myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: UICommonMethods.hexStringToUIColor(hex: "#009E4F"), range: NSRange(location:22,length:20))
         
         // set label Attribute
-        lblTitle.attributedText = myMutableString
-        let attributeString = NSMutableAttributedString(
+        lblTitle.attributedText = myMutableString*/
+        /*let attributeString = NSMutableAttributedString(
               string: "View All",
               attributes: yourAttributes
            )
-        btnViewAll.setAttributedTitle(attributeString, for: .normal)
+        btnViewAll.setAttributedTitle(attributeString, for: .normal)*/
         DispatchQueue.global(qos: .background).async {
             
             self.getAllWords()

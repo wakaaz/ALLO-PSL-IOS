@@ -24,7 +24,8 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
     var wordList = [DictionaryDatum]()
     var animationOn:Bool = false
 
-    
+    var sortAscending:Bool = true
+
     var carSectionTitles = [String]()
     var carSectionTitlesTemp = [String]()
     
@@ -340,7 +341,11 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
             if carSectionTitlesWords.count == 0{
                 loadAnimation()
             }
-            
+            self.carSectionTitlesWords.removeAll()
+            self.carSectionTitlesWordsTemp.removeAll()
+            self.carsDictionaryWords.removeAll()
+            self.carsDictionaryWordsTemp.removeAll()
+
             self.setUpWordsData()
 
             self.tableView.reloadData()
@@ -564,7 +569,7 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
         
         let searchString = "/^[a-zA-Z]+$/"
         //et predicate = NSPredicate(format: "english_word BEGINSWITH[a] %@",searchString)
-        let sort = NSSortDescriptor(key: "english_word", ascending: true)
+        let sort = NSSortDescriptor(key: "english_word", ascending: sortAscending)
         
        // fetchRequest.predicate = predicate
 
@@ -579,15 +584,15 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
         //
         do {
             let result = try privateContext.fetch(fetchRequest)
-            print(result.count)
             for data in result as! [NSManagedObject] {
                 let title = data.value(forKey: "title") as? String
+
                 let id = data.value(forKey: "id") as? Int
                 let category_id = data.value(forKey: "category_id") as? Int
                 let poster = data.value(forKey: "poster") as? String
                 
                 let english_word = data.value(forKey: "english_word") as? String
-                
+
                 let urdu_word = data.value(forKey: "urdu_word") as? String
                 
                 let filename = data.value(forKey: "filename") as? String
@@ -673,7 +678,6 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
                     }
 
 
-                    print(dataReceived)
                 }
                 
             }
@@ -915,7 +919,6 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
         if parentSegementControl.selectedSegmentIndex == 1{
             
             
-            print(indexPath.section)
             
             let parentindex = carSectionTitlesWords.count - 1
             if indexPath.section == parentindex{
@@ -923,9 +926,9 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
                      if let carValues = carsDictionaryWords[carKey]{
                         let lastItem = carValues.count  - 1
                         
-                        print("Section:"+String(indexPath.section)+"|Row:"+String((indexPath.row))+"|Last:"+String(lastItem)+"|Titlesize:"+String(carSectionTitlesWords.count)+"|Content size"+String(carsDictionaryWords[carKey]?.count ?? 0))
+                        //print("Section:"+String(indexPath.section)+"|Row:"+String((indexPath.row))+"|Last:"+String(lastItem)+"|Titlesize:"+String(carSectionTitlesWords.count)+"|Content size"+String(carsDictionaryWords[carKey]?.count ?? 0))
                              if indexPath.row == lastItem {
-                                 print("IndexRow\(indexPath.row)")
+                                // print("IndexRow\(indexPath.row)")
                                  loadMoreItemsForList()
                              }
                      }
@@ -990,7 +993,8 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
                 
             }else{
                 return IndexesTitlesWords
-                
+              
+
             }
        
 
@@ -1107,7 +1111,6 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
                 
             }else{
                 carSectionTitlesWords.removeAll(keepingCapacity: false)
-                
                 carsDictionaryWords.removeAll(keepingCapacity: false)
                 carsDictionaryWords =  carsDictionaryWordsTemp
                 carSectionTitlesWords =  carSectionTitlesWordsTemp
@@ -1216,22 +1219,33 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
             carSectionTitles =  carSectionTitlesTemp
             carSectionTitlesWords = carSectionTitlesWordsTemp
         }else if textStr == "Ascending"{
+            
+
             carSectionTitles =  carSectionTitlesTemp.sorted { (channel1, channel2) -> Bool in
                 let channelName1 = channel1
                 let channelName2 = channel2
                 return (channelName1.localizedCaseInsensitiveCompare(channelName2) == .orderedAscending)}
             
             carSectionTitlesWords =  carSectionTitlesWords.sorted { (channel1, channel2) -> Bool in
+                let channelName1 = channel1
+                let channelName2 = channel2
+                return (channelName1.localizedCaseInsensitiveCompare(channelName2) == .orderedAscending)}
+            IndexesTitlesWords =  IndexesTitlesWords.sorted{ (channel1, channel2) -> Bool in
                 let channelName1 = channel1
                 let channelName2 = channel2
                 return (channelName1.localizedCaseInsensitiveCompare(channelName2) == .orderedAscending)}
             
         }else if textStr == "Descending"{
+
             carSectionTitles =  carSectionTitlesTemp.sorted { (channel1, channel2) -> Bool in
                 let channelName1 = channel1
                 let channelName2 = channel2
                 return (channelName1.localizedCaseInsensitiveCompare(channelName2) == .orderedDescending)}
             carSectionTitlesWords =  carSectionTitlesWords.sorted { (channel1, channel2) -> Bool in
+                let channelName1 = channel1
+                let channelName2 = channel2
+                return (channelName1.localizedCaseInsensitiveCompare(channelName2) == .orderedDescending)}
+            IndexesTitlesWords =  IndexesTitlesWords.sorted{ (channel1, channel2) -> Bool in
                 let channelName1 = channel1
                 let channelName2 = channel2
                 return (channelName1.localizedCaseInsensitiveCompare(channelName2) == .orderedDescending)}
@@ -1268,12 +1282,26 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
 
        // if let p240 =  selectedDataModel?.quality240p?.url{
             let deleteAction1 = UIAlertAction(title: "Alphabetically: A-Z", style: .default, handler:
-            {
+                                                { [self]
                 (alert: UIAlertAction!) -> Void in
                 
                 
-                    
-                self.sortArray(textStr: "Ascending")
+                self.sortAscending = true
+
+               // if self.parentSegementControl.selectedSegmentIndex == 1{
+                    self.offsetLimit = 100
+                    self.carSectionTitlesWords.removeAll()
+                self.carSectionTitlesWordsTemp.removeAll()
+
+                    self.carsDictionaryWords.removeAll()
+                    self.carsDictionaryWordsTemp.removeAll()
+                    self.setUpWordsData()
+                   // self.sortArray(textStr: "Descending")
+
+                //}else{
+                    self.sortArray(textStr: "Ascending")
+
+               // }
                 
                 
                
@@ -1286,8 +1314,23 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
             {
                 (alert: UIAlertAction!) -> Void in
               //  let p240:String =  self.selectedDataModel?.quality240p?.url ?? ""
-                self.sortArray(textStr: "Descending")
+                self.sortAscending = false
 
+               // if self.parentSegementControl.selectedSegmentIndex == 1{
+                    self.offsetLimit = 0
+                    self.sortAscending = false
+                    self.carSectionTitlesWords.removeAll()
+                    self.carSectionTitlesWordsTemp.removeAll()
+
+                    self.carsDictionaryWords.removeAll()
+                    self.carsDictionaryWordsTemp.removeAll()
+                    self.setUpWordsData()
+                   // self.sortArray(textStr: "Descending")
+
+               // }else{
+                    self.sortArray(textStr: "Descending")
+
+               // }
                 
               
             })
@@ -1358,7 +1401,7 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
                 //
                 do {
                     let result = try mainContext.fetch(fetchRequest)
-                    print(result.count)
+                    //print(result.count)
                     for data in result as! [NSManagedObject] {
                         
                         let id = data.value(forKey: "id") as? Int
