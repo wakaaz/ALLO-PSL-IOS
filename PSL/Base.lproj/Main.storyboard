@@ -522,7 +522,7 @@
                                                                             <constraint firstAttribute="width" constant="2" id="C6g-5Q-9s4"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="teachericon" translatesAutoresizingMaskIntoConstraints="NO" id="nyB-rJ-Ejq">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="psldicicon" translatesAutoresizingMaskIntoConstraints="NO" id="nyB-rJ-Ejq">
                                                                         <rect key="frame" x="64.666666666666671" y="30" width="50" height="50"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="50" id="iIA-Uq-Gom"/>
@@ -2719,6 +2719,7 @@
         <image name="nodownloadicon" width="200" height="200"/>
         <image name="novideoicon" width="200" height="200"/>
         <image name="play" width="19.666666030883789" height="25"/>
+        <image name="psldicicon" width="42.333332061767578" height="46.666667938232422"/>
         <image name="scrollup" width="60" height="60"/>
         <image name="shareicon" width="6.3333334922790527" height="5.3333334922790527"/>
         <image name="sorting" width="13.333333015441895" height="25"/>

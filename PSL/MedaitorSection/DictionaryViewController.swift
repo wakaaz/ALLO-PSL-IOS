@@ -49,9 +49,11 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
     
     
     var offsetLimit =  100;
-    
+    var offsetLimitResult =  0;
+
     var simpleDataArray = ["Default", "Ascending", "Descending"]
     var simplesSelectedArray = [String]()
+    
     public enum SelectionType {
         case Single        // default
         case Multiple
@@ -79,7 +81,8 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
         //loadAnimation()
         setUpCategoryData()
         DispatchQueue.global(qos: .background).async {
-            
+            self.offsetLimitResult  = self.checkoffset()
+           
             self.getAllWords()
            
         }
@@ -187,7 +190,6 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
                     
                     self.dataList = self.getAllCategories(privateContext: privateContext)
                     
-                    print(self.wordList.count)
                     // Bounce back to the main thread to update the UI
                     for car in self.dataList {
                         let carKey = String(car.title?.prefix(1) ?? "")
@@ -232,7 +234,7 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
     
     
     func loadMoreItemsForList(){
-          offsetLimit += 100
+          offsetLimit += 200
           setUpWordsData()
       }
     
@@ -251,28 +253,15 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
                     var datalist  = [DictionaryDatum]()
                     
                     datalist  = self.getAllWordsOffset(privateContext: mainContext,offset:self.offsetLimit)
-                    self.wordList.append(contentsOf: datalist)
+                    //self.wordList.append(contentsOf: datalist)
                     
-                    print(self.wordList.count)
+                    print(datalist.count)
                     // Bounce back to the main thread to update the UI
                    
                     
 
-                    
-                    for car in datalist {
-                        let carKey = String(car.englishWord?.prefix(1) ?? "").localizedCapitalized
-                        if var carValues = self.carsDictionaryWords[carKey] {
-                            carValues.append(car)
-                            self.carsDictionaryWords[carKey] = carValues
-                        } else {
-                            
-                            
-                            self.carSectionTitlesWords.append(carKey)
-                            self.carSectionTitlesWordsTemp.append(carKey)
-                            self.carsDictionaryWords[carKey] = [car]
-                        }
-                    }
-                    
+          
+ 
                    
                     
                     //self.carSectionTitlesWords.append(contentsOf: [String](self.carsDictionaryWords.keys))
@@ -283,12 +272,24 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
                     
                     
 
-                    self.carsDictionaryWordsTemp = self.carsDictionaryWords
                     DispatchQueue.main.async {
                         //self.hideAnimation()
                         //  self.lblcontactsize.text = "All Contacts "+String(self.poc.count)+""
                         
-
+                        for car in datalist {
+                            let carKey = String(car.englishWord?.prefix(1) ?? "").localizedCapitalized
+                            if var carValues = self.carsDictionaryWords[carKey] {
+                                carValues.append(car)
+                                self.carsDictionaryWords[carKey] = carValues
+                            } else {
+                                
+                                
+                                self.carSectionTitlesWords.append(carKey)
+                                self.carSectionTitlesWordsTemp.append(carKey)
+                                self.carsDictionaryWords[carKey] = [car]
+                            }
+                        }
+                      self.carsDictionaryWordsTemp = self.carsDictionaryWords
                         
                         if self.parentSegementControl.selectedSegmentIndex == 1{
                             self.hideAnimation()
@@ -302,7 +303,6 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
            
         }
         
-        print(dataList.count)
     }
     /*
      // MARK: - Navigation
@@ -333,11 +333,15 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
         case 0:
             
             print("category")
+            self.offsetLimit =  0;
+
             self.tableView.reloadData()
             
         case 1:
             
             print("words")
+            self.offsetLimit = self.offsetLimitResult;
+
             if carSectionTitlesWords.count == 0{
                 loadAnimation()
             }
@@ -543,7 +547,38 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
     
         return dataList
     }
-    
+    func checkoffset()-> Int{
+        let manager = CoreDataManager.Instance
+        let mainContext = manager.managedObjectContext
+             
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Words")
+
+        var subPredicates : [NSPredicate] = []
+
+        
+        let key = "english_word"                // the entity attribute
+        let value = "-"   // the attribute value
+        let predicate = NSPredicate(format: "%K == %@", argumentArray: [key, value])
+        subPredicates.append(predicate)
+        let numic = "0"
+        let resultPredicate = NSPredicate(format: "english_word contains[cd] %@", numic)
+        subPredicates.append(resultPredicate)
+        request.predicate =  NSCompoundPredicate(type: .or, subpredicates: [predicate, resultPredicate])
+        request.resultType = .countResultType
+
+        var results: Int = 0
+
+        do {
+
+            results = try mainContext.count(for: request)
+        }
+        catch {
+
+            let fetchError = error
+            print(fetchError)
+        }
+        return results
+    }
     
     func getAllWordsOffset(privateContext:NSManagedObjectContext,offset:Int)->[DictionaryDatum] {
        
@@ -568,14 +603,14 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Words")
         
         let searchString = "/^[a-zA-Z]+$/"
-        //et predicate = NSPredicate(format: "english_word BEGINSWITH[a] %@",searchString)
-        let sort = NSSortDescriptor(key: "english_word", ascending: sortAscending)
+       // let predicate = NSPredicate(format: "english_word == %@",searchString)
+        let sort = NSSortDescriptor(key: "english_word", ascending: sortAscending, selector: #selector(NSString.caseInsensitiveCompare(_:)))
         
-       // fetchRequest.predicate = predicate
+       //fetchRequest.predicate = predicate
 
         fetchRequest.sortDescriptors = [sort]
         fetchRequest.fetchOffset = offset;
-        fetchRequest.fetchLimit = 100;
+        fetchRequest.fetchLimit = 200;
         //let predicateID = NSPredicate(format: "id == %@","")
         //    fetchRequest.predicate = predicateID
         //        fetchRequest.fetchLimit = 1
@@ -729,15 +764,20 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
                 return carValues.count
             }
             
-        }else{
+        }else if parentSegementControl.selectedSegmentIndex == 1{
             let carKey = carSectionTitlesWords[section]
             if let carValues = carsDictionaryWords[carKey] {
+                print ("carsDictionaryWords \(carValues.count).")
+
                 return carValues.count
             }
             
+        }else{
+
+            return 0
         }
         }
-        
+
         return 0
     }
     
@@ -771,7 +811,7 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
             // Configure the cell...
             let carKey = carSectionTitles[indexPath.section]
             if let carValues = carsDictionary[carKey] {
-                cell.lbltitle.text = carValues[indexPath.row].title
+                cell.lbltitle.text = carValues[indexPath.row].title?.firstCharacterUpperCase()
                 cell.lbltotalCount.text = String(carValues[indexPath.row].videos ?? 0)+" Words"
                 
             }
@@ -790,9 +830,14 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
                 cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? WordsTableViewCell
             }
             // Configure the cell...
+            print(indexPath.section)
+
             let carKey = carSectionTitlesWords[indexPath.section]
+            print(indexPath.row)
+            print(carKey)
+              
             if let carValues = carsDictionaryWords[carKey] {
-                cell.lbltitle.text = carValues[indexPath.row].englishWord
+                cell.lbltitle.text = carValues[indexPath.row].englishWord?.firstCharacterUpperCase()
                 cell.lblCount.text = carValues[indexPath.row].urduWord ?? ""
                 
             }
@@ -878,7 +923,6 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
         
         
         if let c = cell as?  DictionaryCategoryTableViewCell{
-            print("Downloading Image")
             // c.photoImageView.af_setImage(withURL: url)
             var imageUrlString:String = ""
             let carKey = carSectionTitles[indexPath.section]
@@ -917,27 +961,35 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
         }
         
         if parentSegementControl.selectedSegmentIndex == 1{
+            let searchtext = searchBar.text ?? ""
+
             
-            
-            
-            let parentindex = carSectionTitlesWords.count - 1
-            if indexPath.section == parentindex{
-                let carKey:String = carSectionTitlesWords[indexPath.section]
-                     if let carValues = carsDictionaryWords[carKey]{
-                        let lastItem = carValues.count  - 1
-                        
-                        //print("Section:"+String(indexPath.section)+"|Row:"+String((indexPath.row))+"|Last:"+String(lastItem)+"|Titlesize:"+String(carSectionTitlesWords.count)+"|Content size"+String(carsDictionaryWords[carKey]?.count ?? 0))
-                             if indexPath.row == lastItem {
-                                // print("IndexRow\(indexPath.row)")
-                                 loadMoreItemsForList()
-                             }
-                     }
-            
-           /*
-            }*/
-           
-           
-        }
+            if !searchtext.isEmpty{
+                
+            }else{
+                let parentindex = carSectionTitlesWords.count - 1
+                if indexPath.section == parentindex{
+                    let carKey:String = carSectionTitlesWords[indexPath.section]
+                         if let carValues = carsDictionaryWords[carKey]{
+                            let lastItem = carValues.count  - 1
+                            
+                             
+                             
+                             
+                            //print("Section:"+String(indexPath.section)+"|Row:"+String((indexPath.row))+"|Last:"+String(lastItem)+"|Titlesize:"+String(carSectionTitlesWords.count)+"|Content size"+String(carsDictionaryWords[carKey]?.count ?? 0))
+                                 if indexPath.row == lastItem {
+                                    // print("IndexRow\(indexPath.row)")
+                                     loadMoreItemsForList()
+                                 }
+                         }
+                
+               /*
+                }*/
+               
+               
+            }
+            }
+         
         }
         
         
@@ -1289,7 +1341,7 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
                 self.sortAscending = true
 
                // if self.parentSegementControl.selectedSegmentIndex == 1{
-                    self.offsetLimit = 100
+                self.offsetLimit = self.offsetLimitResult
                     self.carSectionTitlesWords.removeAll()
                 self.carSectionTitlesWordsTemp.removeAll()
 
@@ -1391,8 +1443,11 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
                 let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Words")
               //  let pattern = ".*\\b\(NSRegularExpression.escapedPattern(for: searchTerm))\\b.*"
              //   let predicateID = NSPredicate(format: "tagName MATCHES[c] %@", pattern)
-                let predicate = NSPredicate(format: "english_word contains[c] %@", searchTerm)
+                let predicate = NSPredicate(format: "english_word BEGINSWITH[c] %@", searchTerm)
+                let sort = NSSortDescriptor(key: "english_word", ascending: sortAscending, selector: #selector(NSString.caseInsensitiveCompare(_:)))
                 fetchRequest.predicate = predicate
+               fetchRequest.sortDescriptors  =  [sort]
+        
                 
                 //    fetchRequest.predicate = predicateID
                 //        fetchRequest.fetchLimit = 1
