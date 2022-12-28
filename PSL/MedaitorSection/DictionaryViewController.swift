@@ -811,7 +811,7 @@ class DictionaryViewController: UIViewController,UITableViewDataSource, UITableV
             // Configure the cell...
             let carKey = carSectionTitles[indexPath.section]
             if let carValues = carsDictionary[carKey] {
-                cell.lbltitle.text = carValues[indexPath.row].title?.firstCharacterUpperCase()
+                cell.lbltitle.text = carValues[indexPath.row].title
                 cell.lbltotalCount.text = String(carValues[indexPath.row].videos ?? 0)+" Words"
                 
             }
