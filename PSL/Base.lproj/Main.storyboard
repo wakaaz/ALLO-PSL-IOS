@@ -2699,8 +2699,8 @@
         <image name="arrow.right" catalog="system" width="128" height="98"/>
         <image name="backward" width="42.666667938232422" height="42.666667938232422"/>
         <image name="cardbg" width="178.33332824707031" height="150"/>
-        <image name="downloadicon" width="6.6666665077209473" height="5.3333334922790527"/>
-        <image name="favouriteicon" width="6" height="5.6666665077209473"/>
+        <image name="downloadicon" width="38" height="38"/>
+        <image name="favouriteicon" width="38" height="38"/>
         <image name="forward" width="42.666667938232422" height="42.666667938232422"/>
         <image name="fullscreen" width="25" height="25"/>
         <image name="homebg" width="414" height="200"/>
@@ -2721,13 +2721,13 @@
         <image name="play" width="19.666666030883789" height="25"/>
         <image name="psldicicon" width="42.333332061767578" height="46.666667938232422"/>
         <image name="scrollup" width="60" height="60"/>
-        <image name="shareicon" width="6.3333334922790527" height="5.3333334922790527"/>
+        <image name="shareicon" width="38" height="38"/>
         <image name="sorting" width="13.333333015441895" height="25"/>
         <image name="splashbg" width="167.66667175292969" height="298.66665649414062"/>
         <image name="storiesicon" width="63" height="70"/>
         <image name="teachericon" width="63.333332061767578" height="70"/>
-        <image name="vimeoicon" width="6.3333334922790527" height="5.6666665077209473"/>
-        <image name="youtubeicon" width="7.3333334922790527" height="5.3333334922790527"/>
+        <image name="vimeoicon" width="38" height="38"/>
+        <image name="youtubeicon" width="38" height="38"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.62000000476837158" blue="0.31000000238418579" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

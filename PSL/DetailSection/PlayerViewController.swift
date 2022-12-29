@@ -195,7 +195,7 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
                 lblTotalDuration.text = downloadedModel?.duration
                 lblHeading.text = fileName.firstCharacterUpperCase()
                 lblsubHeading.text = "Downloads"
-                downloadIamge.image =  UIImage(named: "navdownload")
+                downloadIamge.image =  UIImage(named: "downloadfill")
                 
                 
                 
@@ -581,7 +581,7 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
             if checkRecord(id: String(selectedDataModel?.id ?? 0)) > 0{
                 
                 
-                downloadIamge.image =  UIImage(named: "navdownload")
+                downloadIamge.image =  UIImage(named: "downloadfill")
                 
             }else{
                 downloadIamge.image =  UIImage(named: "downloadicon")
@@ -2195,7 +2195,7 @@ class PlayerViewController: BaseViewController ,UITableViewDataSource, UITableVi
                 
                 
                 
-                downloadIamge.image =  UIImage(named: "navdownload")
+                downloadIamge.image =  UIImage(named: "downloadfill")
                 nearestEnclosingTabBarController.downloadManager.addDownloadTask(fileName as String, fileURL: fileURL as String, destinationPath: myDownloadPath)
                 
                 if let model = self.selectedDataModel{

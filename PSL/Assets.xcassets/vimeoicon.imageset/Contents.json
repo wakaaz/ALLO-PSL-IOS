@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "vimeo.png",
+      "filename" : "vimeo-36x36.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "vimeo-1.png",
+      "filename" : "vimeo-36x36-w.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "vimeo@2x.png",
+      "filename" : "vimeo-76x76.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "vimeo@2x-1.png",
+      "filename" : "vimeo-76x76-w.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "vimeo@3x.png",
+      "filename" : "vimeo-114x114.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "vimeo@3x-1.png",
+      "filename" : "vimeo-114x114-w.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
